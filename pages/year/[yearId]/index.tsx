@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex h-screen w-full">
-        <div>TOP</div>
+        <div>試験一覧</div>
       </main>
     </div>
   )
