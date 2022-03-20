@@ -50,15 +50,6 @@ export const Question: VFC<Props> = ({
     setButtonIndex(null)
   }, [question])
 
-  //prev next button
-  let prev, next
-  const { isSuccess, data } = useQueryTitlesByYearAndSubcategory(yearId)
-  if (isSuccess) {
-    const index = data.findIndex((item) => item.id === question.id)
-    prev = data[index - 1] ? data[index - 1] : null
-    next = data[index + 1] ? data[index + 1] : null
-  }
-
   return (
     <div className="flex grow justify-center overflow-scroll">
       <div className="h-max max-w-[800px] py-24 px-8">
@@ -117,33 +108,6 @@ export const Question: VFC<Props> = ({
               {index + 1}
             </button>
           ))}
-        </div>
-
-        {/* prev next button */}
-        <div className="flex justify-between">
-          {prev && (
-            <Link href={`/year/${yearId}/${prev?.id}`}>
-              <a className="btn-neutral btn btn-outline flex w-max cursor-pointer items-center space-x-2 font-bold">
-                <ArrowNarrowLeftIcon className="w-6" />
-                <span>前の問題</span>
-              </a>
-            </Link>
-          )}
-          {next ? (
-            <Link href={`/year/${yearId}/${next?.id}`}>
-              <a className="btn-neutral btn btn-outline ml-auto flex w-max cursor-pointer items-center space-x-2 font-bold">
-                <span>次の問題</span>
-                <ArrowNarrowRightIcon className="w-6" />
-              </a>
-            </Link>
-          ) : (
-            <Link href={`/`}>
-              <a className="btn-neutral btn btn-outline ml-auto flex w-max cursor-pointer items-center space-x-2 font-bold">
-                <span>トップに戻る</span>
-                <ArrowNarrowRightIcon className="w-6" />
-              </a>
-            </Link>
-          )}
         </div>
       </div>
     </div>
