@@ -1,5 +1,6 @@
 import { useState, VFC } from 'react'
-import { ColorSwatchIcon } from '@heroicons/react/outline'
+import { SunIcon } from '@heroicons/react/outline'
+import { MoonIcon } from '@heroicons/react/solid'
 import { useTheme } from 'next-themes'
 
 export const FixButton: VFC = () => {
@@ -14,7 +15,11 @@ export const FixButton: VFC = () => {
         className="cursor-pointer"
         title="背景色変更"
       >
-        <ColorSwatchIcon className="w-6" />
+        {theme === 'winter' ? (
+          <MoonIcon className="w-5" />
+        ) : (
+          <SunIcon className="w-6" />
+        )}
       </div>
 
       <div className="flex h-12 cursor-pointer items-center space-x-2 rounded-full bg-base-200 p-1 pr-3 transition hover:bg-base-300">
