@@ -20,7 +20,11 @@ export const useQueryTitlesByYearAndSubcategory = (yearId: string) => {
     )
     return data
   }
-  return useQuery<Title[], Error>('titles', fetchTitlesByYearAndSubcategory, {
-    staleTime: Infinity,
-  })
+  return useQuery<Title[], Error>(
+    ['titles', yearId],
+    fetchTitlesByYearAndSubcategory,
+    {
+      staleTime: Infinity,
+    }
+  )
 }
