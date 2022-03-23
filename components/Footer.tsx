@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { VFC } from 'react'
 
 export const Footer: VFC = () => {
@@ -6,10 +7,18 @@ export const Footer: VFC = () => {
       <div className="footer w-1/2 text-base-content">
         <div>
           <span className="footer-title">年度別試験</span>
-          <a className="hover:opacity-60">令和3年（2021年）12月</a>
-          <a className="hover:opacity-60">令和3年（2021年）10月</a>
-          <a className="hover:opacity-60">令和2年（2020年）12月</a>
-          <a className="hover:opacity-60">令和2年（2020年）10月</a>
+          <Link href="/year/212">
+            <a className="hover:opacity-60">令和3年（2021年）12月</a>
+          </Link>
+          <Link href="/year/211">
+            <a className="hover:opacity-60">令和3年（2021年）10月</a>
+          </Link>
+          <Link href="/year/202">
+            <a className="hover:opacity-60">令和2年（2020年）12月</a>
+          </Link>
+          <Link href="/year/201">
+            <a className="hover:opacity-60">令和2年（2020年）10月</a>
+          </Link>
         </div>
         {/* <div>
             <span className="footer-title">カテゴリー別試験</span>
@@ -20,9 +29,15 @@ export const Footer: VFC = () => {
           </div> */}
         <div>
           <span className="footer-title opacity-0">コンテンツ</span>
-          <a className="hover:opacity-60">利用規約</a>
-          <a className="hover:opacity-60">プライバシーポリシー</a>
-          <a className="hover:opacity-60">お問い合わせ</a>
+          <Link href="/terms">
+            <a className="hover:opacity-60">利用規約</a>
+          </Link>
+          <Link href="/privacy-policy">
+            <a className="hover:opacity-60">プライバシーポリシー</a>
+          </Link>
+          <Link href="/contact">
+            <a className="hover:opacity-60">お問い合わせ</a>
+          </Link>
         </div>
       </div>
 
