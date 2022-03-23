@@ -42,3 +42,13 @@ export const GET_TITLES_BY_YEAR_AND_SUBCATEGORY = gql`
     }
   }
 `
+
+export const GET_TITLES = gql`
+  query GetTitles {
+    titles(order_by: { id: asc }) {
+      id
+      content
+      year_id
+    }
+  }
+`
