@@ -51,8 +51,8 @@ export const Question: VFC<Props> = ({
   }, [question])
 
   return (
-    <div className="flex grow justify-center overflow-scroll">
-      <div className="h-max max-w-[800px] py-24 px-8">
+    <div className="flex grow justify-center overflow-scroll 2xl:ml-10 2xl:grow-0">
+      <div className="h-max max-w-[800px] py-24 px-5">
         {/* title and question */}
         <p className="text-lg font-bold">{question?.title?.content}</p>
         <div className="mt-2 mb-7 flex space-x-1">

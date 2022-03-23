@@ -23,8 +23,8 @@ const Home: VFC<Props> = ({ data, yearId, questionId }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-screen w-full">
-        <Header />
+      <Header />
+      <main className="flex h-screen w-full 2xl:justify-center">
         <Sidebar yearId={yearId} questionId={questionId} />
         <Question {...data} yearId={yearId} />
       </main>
