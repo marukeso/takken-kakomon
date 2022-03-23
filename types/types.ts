@@ -12,6 +12,7 @@ export interface Title {
   content: string
   subcategory?: Subcategory
   year?: CategoryOrYear
+  year_id?: string
 }
 export interface Subcategory {
   content: string
