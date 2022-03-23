@@ -43,6 +43,18 @@ export const GET_TITLES_BY_YEAR_AND_SUBCATEGORY = gql`
   }
 `
 
+export const GET_TITLES_BY_YEAR_AND_YEAR_CONTENT = gql`
+  query GetTitles($yearId: String!) {
+    titles(where: { year_id: { _eq: $yearId } }, order_by: { id: asc }) {
+      id
+      content
+    }
+    years_by_pk(id: $yearId) {
+      content
+    }
+  }
+`
+
 export const GET_TITLES = gql`
   query GetTitles {
     titles(order_by: { id: asc }) {
