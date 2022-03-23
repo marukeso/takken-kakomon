@@ -1,7 +1,5 @@
 import { VFC } from 'react'
 import {
-  HomeIcon,
-  HeartIcon,
   ArrowNarrowLeftIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
@@ -27,14 +25,6 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
 
   return (
     <div className="relative w-80 overflow-scroll bg-base-200 px-4 py-20 text-sm">
-      <div className="fixed top-0 left-4 w-[287px] border-b border-base-300 bg-base-200">
-        <Link href="/">
-          <a className="block p-4 text-2xl font-bold">
-            <span className="text-primary">宅建</span>過去問
-          </a>
-        </Link>
-      </div>
-
       {/* <Link href="/">
           <a className="flex cursor-pointer items-center space-x-2 rounded-md py-3 px-4 transition hover:bg-base-300">
             <HomeIcon className="w-6" />

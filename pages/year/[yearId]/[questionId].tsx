@@ -7,6 +7,7 @@ import { Question } from '../../../components/Question'
 import { QuestionData, Title } from 'types/types'
 import request from 'graphql-request'
 import { GET_QUESTION, GET_TITLES } from 'queries/queries'
+import { Header } from '../../../components/Header'
 
 interface Props {
   data: QuestionData
@@ -23,7 +24,7 @@ const Home: VFC<Props> = ({ data, yearId, questionId }) => {
       </Head>
 
       <main className="flex h-screen w-full">
-        <FixButton />
+        <Header />
         <Sidebar yearId={yearId} questionId={questionId} />
         <Question {...data} yearId={yearId} />
       </main>

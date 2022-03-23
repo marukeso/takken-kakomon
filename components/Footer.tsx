@@ -2,7 +2,7 @@ import { VFC } from 'react'
 
 export const Footer: VFC = () => {
   return (
-    <footer className="bg-base-200 px-6 pt-10 pb-4">
+    <footer className="bg-base-200 px-8 pt-10 pb-4">
       <div className="footer w-1/2 text-base-content">
         <div>
           <span className="footer-title">年度別試験</span>
