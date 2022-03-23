@@ -8,7 +8,7 @@ export const Header: VFC = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="fixed top-0 left-0 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-4">
+    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-7">
       <h1>
         <Link href="/">
           <a className="block text-xl font-bold">
