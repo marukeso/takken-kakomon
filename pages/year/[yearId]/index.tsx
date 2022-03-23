@@ -1,19 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { DefaultLayout } from '../../../components/DefaultLayout'
 
-const Home: NextPage = () => {
+const QuestionByYearList: NextPage = () => {
   return (
     <div className="overflow-hidden">
       <Head>
-        <title>宅建過去問</title>
+        <title>試験一覧</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-screen w-full">
-        <div>試験一覧</div>
-      </main>
+      <DefaultLayout>
+        <div className="p-32">試験一覧</div>
+      </DefaultLayout>
     </div>
   )
 }
 
-export default Home
+export default QuestionByYearList

@@ -1,3 +1,4 @@
+import { DefaultLayout } from '@/components/DefaultLayout'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -9,9 +10,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-screen w-full">
-        <div>TOP</div>
-      </main>
+      <DefaultLayout>
+        <div className="p-32">TOP</div>
+      </DefaultLayout>
     </div>
   )
 }
