@@ -49,7 +49,7 @@ const QuestionList: NextPage<Props> = ({ yearId }) => {
           <div className="w-80">
             <div className="sticky top-20 rounded-md border border-base-300">
               <div className="p-4">
-                <Link href={`/year/${yearId}/${titles?.[0].id}`}>
+                <Link href={`/year/${yearId}/${yearId}01`}>
                   <a className="btn btn-primary w-full text-white">
                     試験を開始する
                   </a>
