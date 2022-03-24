@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useState } from 'react'
+import { UserProvider } from '@auth0/nextjs-auth0'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -18,12 +19,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       })
   )
   return (
-    <ThemeProvider defaultTheme="system">
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider defaultTheme="system">
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </UserProvider>
   )
 }
 
