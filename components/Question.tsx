@@ -1,23 +1,16 @@
-import {
-  ArrowNarrowLeftIcon,
-  ArrowNarrowRightIcon,
-} from '@heroicons/react/outline'
-import Link from 'next/link'
 import { VFC, useState, useEffect } from 'react'
 import { QuestionsByPk, ChoicesEntity } from '../types/types'
 import confetti from 'canvas-confetti'
-import { useQueryTitlesByYearAndSubcategory } from 'hooks/useQueryTitlesByYearAndSubcategory'
 
 interface Props {
   yearId: string
-  questions_by_pk: QuestionsByPk
+  questions_by_pk?: QuestionsByPk
   choices?: ChoicesEntity[] | null
 }
 
 export const Question: VFC<Props> = ({
   questions_by_pk: question,
   choices,
-  yearId,
 }) => {
   // answer animation
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
