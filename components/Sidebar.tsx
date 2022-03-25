@@ -17,7 +17,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
   //prev next button
   let prev, next
   const { isSuccess, data } = useQueryTitlesByYearAndSubcategory(yearId)
-  if (isSuccess) {
+  if (isSuccess && data) {
     const index = data.findIndex((item) => item.id === questionId)
     prev = data[index - 1] ? data[index - 1] : null
     next = data[index + 1] ? data[index + 1] : null
