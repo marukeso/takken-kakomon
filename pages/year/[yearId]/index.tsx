@@ -1,22 +1,32 @@
 import { Loading } from '@/components/Loading'
-import { useQueryTitlesByYearAndYearContent } from 'hooks/useQueryTitlesByYearAndYearContent'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { DefaultLayout } from '../../../components/DefaultLayout'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
+import { dehydrate, QueryClient, useQueryClient } from 'react-query'
+import { GET_TITLES_BY_YEAR_AND_YEAR_CONTENT } from 'queries/queries'
+import request from 'graphql-request'
+import { Title } from 'types/types'
 
 interface Props {
   yearId: string
 }
 
-const QuestionList: NextPage<Props> = ({ yearId }) => {
-  const { isLoading, data } = useQueryTitlesByYearAndYearContent(yearId)
-  const { titles, years_by_pk: year } = data || {}
-
-  if (isLoading) {
-    return <Loading />
+interface ListDataProps {
+  titles: Title[]
+  years_by_pk: {
+    content: string
   }
+}
+
+const QuestionList: NextPage<Props> = ({ yearId }) => {
+  const queryClient = useQueryClient()
+  const data = queryClient.getQueryData<ListDataProps>([
+    'titlesByYearAndYearContent',
+    yearId,
+  ])
+  const { titles, years_by_pk: year } = data || {}
 
   return (
     <div>
@@ -93,7 +103,36 @@ const QuestionList: NextPage<Props> = ({ yearId }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  return { props: { yearId: query.yearId } }
+  const fetchTitles = async () => {
+    const data = await request<Props>(
+      process.env.NEXT_PUBLIC_HASURA_ENDPOINT as string,
+      GET_TITLES_BY_YEAR_AND_YEAR_CONTENT,
+      { yearId: query.yearId }
+    )
+    return data
+  }
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(
+    ['titlesByYearAndYearContent', query.yearId],
+    fetchTitles
+  )
+
+  const listData = queryClient.getQueryData<ListDataProps>([
+    'titlesByYearAndYearContent',
+    query.yearId,
+  ])
+  if (!listData?.years_by_pk) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      ...query,
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }
 
 export default QuestionList
