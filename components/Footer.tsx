@@ -41,9 +41,7 @@ export const Footer: VFC = () => {
         </div>
       </div>
 
-      <p className="mt-10 text-center text-xs lg:text-right">
-        ©2022 宅建過去問
-      </p>
+      <p className="mt-10 text-center text-xs">©2022 宅建過去問</p>
     </footer>
   )
 }

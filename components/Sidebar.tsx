@@ -24,7 +24,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
   }
 
   return (
-    <div className="relative w-80 overflow-scroll bg-base-200 px-4 py-20 text-sm">
+    <div className="relative w-80 overflow-scroll bg-base-200 px-4 py-24 text-sm">
       {/* <Link href="/">
           <a className="flex cursor-pointer items-center space-x-2 rounded-md py-3 px-4 transition hover:bg-base-300">
             <HomeIcon className="w-6" />
@@ -52,7 +52,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
         <div className="flex w-[240px] justify-between">
           {prev && (
             <Link href={`/year/${yearId}/${prev?.id}`}>
-              <a className="btn-neutral btn btn-outline btn-sm flex w-max cursor-pointer items-center space-x-1">
+              <a className="btn btn-sm flex w-max cursor-pointer items-center space-x-1">
                 <ChevronLeftIcon className="w-4" />
                 <span>前の問題</span>
               </a>
@@ -60,14 +60,14 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
           )}
           {next ? (
             <Link href={`/year/${yearId}/${next?.id}`}>
-              <a className="btn-neutral btn btn-outline btn-sm ml-auto flex w-max cursor-pointer items-center space-x-1">
+              <a className="btn btn-sm ml-auto flex w-max cursor-pointer items-center space-x-1">
                 <span>次の問題</span>
                 <ChevronRightIcon className="w-4" />
               </a>
             </Link>
           ) : (
             <Link href={`/`}>
-              <a className="btn-neutral btn btn-outline btn-sm ml-auto flex w-max cursor-pointer items-center space-x-1">
+              <a className="btn btn-sm ml-auto flex w-max cursor-pointer items-center space-x-1">
                 <span>トップに戻る</span>
                 <ChevronRightIcon className="w-4" />
               </a>

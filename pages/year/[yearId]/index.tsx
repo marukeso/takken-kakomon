@@ -26,17 +26,17 @@ const QuestionList: NextPage<Props> = ({ yearId }) => {
       </Head>
 
       <DefaultLayout>
-        <div className="m-auto my-32 flex w-[900px] justify-between">
+        <div className="m-auto my-24 flex w-[900px] justify-between">
           <div className="w-[520px]">
-            <h1 className="mb-4 pb-3 text-2xl font-bold">
+            <h1 className="text-kyokasho mb-6 px-2 text-2xl font-bold">
               {year?.content}試験
             </h1>
 
-            <ul className="border-x border-t border-base-300">
+            <ul className="">
               {titles?.map((title) => (
-                <li className="border-b border-base-300" key={title.id}>
+                <li key={title.id}>
                   <Link href={`/year/${yearId}/${title.id}`}>
-                    <a className="flex items-center justify-between px-4 py-2 hover:bg-base-300">
+                    <a className="flex items-center justify-between rounded p-2 hover:bg-base-200">
                       <span>{title.content}</span>
                       {/* <span className="badge badge-success">3/3</span> */}
                     </a>
@@ -50,9 +50,7 @@ const QuestionList: NextPage<Props> = ({ yearId }) => {
             <div className="sticky top-20 rounded-md border border-base-300">
               <div className="p-4">
                 <Link href={`/year/${yearId}/${yearId}01`}>
-                  <a className="btn btn-primary w-full text-white">
-                    試験を開始する
-                  </a>
+                  <a className="btn w-full">試験を開始する</a>
                 </Link>
               </div>
 
