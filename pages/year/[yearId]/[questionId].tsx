@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Sidebar } from '../../../components/Sidebar'
 import { GetServerSideProps, NextPage } from 'next'
 import { Question } from '../../../components/Question'
-import { QuestionData } from 'types/types'
+import { QuestionData, QuestionsByPk } from 'types/types'
 import request from 'graphql-request'
 import { GET_QUESTION } from 'queries/queries'
 import { Header } from '../../../components/Header'
@@ -55,6 +55,16 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(['question', query.questionId], fetchQuestion)
+
+  const Qdata: QuestionData | undefined = await queryClient.getQueryData([
+    'question',
+    query.questionId,
+  ])
+  if (!Qdata?.questions_by_pk) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: {
