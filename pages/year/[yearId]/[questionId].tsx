@@ -7,6 +7,7 @@ import request from 'graphql-request'
 import { GET_QUESTION } from 'queries/queries'
 import { Header } from '../../../components/Header'
 import { dehydrate, QueryClient, useQueryClient } from 'react-query'
+// import { getAccessToken } from '@auth0/nextjs-auth0'
 
 interface Props {
   data: QuestionData
@@ -34,7 +35,13 @@ const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  query,
+}) => {
+  // const { accessToken } = await getAccessToken(req, res)
+
   const fetchQuestion = async () => {
     const data = await request(
       process.env.NEXT_PUBLIC_HASURA_ENDPOINT as string,
