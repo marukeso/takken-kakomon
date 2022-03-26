@@ -4,10 +4,15 @@ import { ThemeProvider } from 'next-themes'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UserProvider } from '@auth0/nextjs-auth0'
+import adobeLoader from '../util/adobeLoader'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if (process.browser) adobeLoader(document)
+  }, [])
+
   const [queryClient] = useState(
     () =>
       new QueryClient({

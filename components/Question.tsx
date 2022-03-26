@@ -47,7 +47,7 @@ export const Question: VFC<Props> = ({
     <div className="flex grow justify-center overflow-scroll 2xl:ml-10 2xl:grow-0">
       <div className="h-max max-w-[800px] py-24 px-5">
         {/* title and question */}
-        <p className="text-lg font-bold">{question?.title?.content}</p>
+        <p className="text-lg font-medium">{question?.title?.content}</p>
         <div className="mt-2 mb-7 flex space-x-1">
           <div className="badge badge-outline text-xs">
             {question?.title?.year?.content}
@@ -60,7 +60,7 @@ export const Question: VFC<Props> = ({
           </div>
         </div>
 
-        <div className="question-text mb-8 text-xl font-bold">
+        <div className="question-text mb-8 text-xl font-medium">
           <div
             dangerouslySetInnerHTML={{
               __html: question ? question.content : '',
@@ -77,7 +77,7 @@ export const Question: VFC<Props> = ({
                 choice.is_answer ? correctColor : wrongColor
               }`}
             >
-              <div className="mr-5 text-3xl font-bold">{index + 1}</div>
+              <div className="mr-5 text-3xl font-medium">{index + 1}.</div>
               <p>{choice.content}</p>
             </div>
           ))}
@@ -90,7 +90,7 @@ export const Question: VFC<Props> = ({
               key={choice.id}
               data-correct={choice.is_answer}
               onClick={(e) => handleOnClick(e, index)}
-              className={`btn btn-ghost btn-lg text-4xl font-bold ${
+              className={`btn btn-ghost btn-lg text-4xl font-medium ${
                 choice.is_answer ? correctColor : wrongColor
               } ${isAnswered ? 'pointer-events-none' : ''} ${
                 buttonIndex === index && !choice.is_answer
