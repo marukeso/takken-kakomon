@@ -25,8 +25,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       })
   )
 
+  const { user } = pageProps
+
   return (
-    <UserProvider>
+    <UserProvider user={user}>
       <ThemeProvider defaultTheme="light">
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
