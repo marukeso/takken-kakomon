@@ -10,7 +10,7 @@ import adobeLoader from '../util/adobeLoader'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    if (process.browser) adobeLoader(document)
+    if (typeof window) adobeLoader(document)
   }, [])
 
   const [queryClient] = useState(
@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       })
   )
+
   return (
     <UserProvider>
       <ThemeProvider defaultTheme="light">
