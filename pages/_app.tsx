@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
   return (
     <UserProvider>
-      <ThemeProvider defaultTheme="system">
+      <ThemeProvider defaultTheme="light">
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <Component {...pageProps} />

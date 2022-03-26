@@ -2,16 +2,16 @@ import { SunIcon } from '@heroicons/react/outline'
 import { MoonIcon } from '@heroicons/react/solid'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { VFC } from 'react'
+import { useEffect, useState, VFC } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 
 export const Header: VFC = () => {
   const { user } = useUser()
-  const { theme, setTheme } = useTheme()
 
-  if (theme === 'system') {
-    setTheme('light')
-  }
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
 
   return (
     <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-7">
@@ -21,17 +21,11 @@ export const Header: VFC = () => {
         </Link>
       </h1>
 
-      <div
-        onClick={() =>
-          theme === 'dark' ? setTheme('light') : setTheme('dark')
-        }
-        className="ml-auto mr-3 cursor-pointer"
-        title="背景色変更"
-      >
+      <div className="ml-auto mr-3 cursor-pointer" title="背景色変更">
         {theme === 'light' ? (
-          <MoonIcon className="w-5" />
+          <MoonIcon onClick={() => setTheme('dark')} className="w-5" />
         ) : (
-          <SunIcon className="w-6" />
+          <SunIcon onClick={() => setTheme('light')} className="w-6" />
         )}
       </div>
 
