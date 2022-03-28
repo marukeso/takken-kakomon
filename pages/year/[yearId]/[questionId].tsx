@@ -7,15 +7,16 @@ import request from 'graphql-request'
 import { GET_QUESTION } from 'queries/queries'
 import { Header } from '../../../components/Header'
 import { dehydrate, QueryClient, useQueryClient } from 'react-query'
-// import { getAccessToken } from '@auth0/nextjs-auth0'
+import { getAccessToken } from '@auth0/nextjs-auth0'
 
 interface Props {
-  data: QuestionData
+  // data: QuestionData
   yearId: string
   questionId: string
+  accessToken?: string
 }
 
-const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
+const QuestionPage: NextPage<Props> = ({ yearId, questionId, accessToken }) => {
   const queryClient = useQueryClient()
   const data = queryClient.getQueryData<QuestionData>(['question', questionId])
 
@@ -29,7 +30,7 @@ const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
       <Header />
       <main className="flex h-screen w-full 2xl:justify-center">
         <Sidebar yearId={yearId} questionId={questionId} />
-        <Question {...data} yearId={yearId} />
+        <Question {...data} yearId={yearId} accessToken={accessToken} />
       </main>
     </div>
   )
@@ -40,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   query,
 }) => {
-  // const { accessToken } = await getAccessToken(req, res)
+  const { accessToken } = await getAccessToken(req, res)
 
   const fetchQuestion = async () => {
     const data = await request(
@@ -69,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       ...query,
+      accessToken,
       dehydratedState: dehydrate(queryClient),
     },
   }
