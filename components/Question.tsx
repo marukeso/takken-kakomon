@@ -1,22 +1,29 @@
 import { VFC, useState, useEffect } from 'react'
 import { QuestionsByPk, ChoicesEntity } from '../types/types'
 import confetti from 'canvas-confetti'
+import { useUser } from '@auth0/nextjs-auth0'
+import { useMutateAnswer } from '../hooks/useMutateAnswer'
 
 interface Props {
   yearId: string
   questions_by_pk?: QuestionsByPk
   choices?: ChoicesEntity[] | null
+  accessToken?: string
 }
 
 export const Question: VFC<Props> = ({
   questions_by_pk: question,
   choices,
+  accessToken,
 }) => {
   // answer animation
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
   const [correctColor, setCorrectColor] = useState<string>('')
   const [wrongColor, setWrongColor] = useState<string>('')
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
+
+  const { user } = useUser()
+  const { creactAnswerMutation } = useMutateAnswer(accessToken as string)
 
   const handleOnClick = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -32,6 +39,13 @@ export const Question: VFC<Props> = ({
         particleCount: 100,
         spread: 130,
         origin: { y: 0.4 },
+      })
+    }
+    if (user && question) {
+      creactAnswerMutation.mutate({
+        categoryId: question?.title?.subcategory?.category.id as string,
+        isCorrect: isCorrect ? true : false,
+        titleId: question?.id,
       })
     }
   }

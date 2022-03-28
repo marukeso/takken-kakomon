@@ -10,6 +10,7 @@ export const GET_QUESTION = gql`
         subcategory {
           content
           category {
+            id
             content
           }
         }
@@ -61,6 +62,25 @@ export const GET_TITLES = gql`
       id
       content
       year_id
+    }
+  }
+`
+export const INSERT_ANSWER = gql`
+  mutation InsertAnswersOne(
+    $categoryId: String!
+    $isCorrect: Boolean!
+    $titleId: String!
+  ) {
+    insert_answers_one(
+      object: {
+        category_id: $categoryId
+        is_correct: $isCorrect
+        title_id: $titleId
+      }
+    ) {
+      category_id
+      is_correct
+      title_id
     }
   }
 `

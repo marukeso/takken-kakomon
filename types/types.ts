@@ -19,10 +19,17 @@ export interface Subcategory {
   category: CategoryOrYear
 }
 export interface CategoryOrYear {
+  id?: string
   content: string
 }
 export interface ChoicesEntity {
   id: string
   content: string
   is_answer: boolean
+}
+
+export interface Answer {
+  category_id: string
+  is_correct: boolean
+  title_id: string
 }
