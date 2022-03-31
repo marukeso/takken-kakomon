@@ -7,16 +7,14 @@ import request from 'graphql-request'
 import { GET_QUESTION } from 'queries/queries'
 import { Header } from '../../../components/Header'
 import { dehydrate, QueryClient, useQueryClient } from 'react-query'
-import { getAccessToken } from '@auth0/nextjs-auth0'
 
 interface Props {
-  // data: QuestionData
   yearId: string
   questionId: string
   accessToken?: string
 }
 
-const QuestionPage: NextPage<Props> = ({ yearId, questionId, accessToken }) => {
+const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
   const queryClient = useQueryClient()
   const data = queryClient.getQueryData<QuestionData>(['question', questionId])
 
@@ -30,19 +28,13 @@ const QuestionPage: NextPage<Props> = ({ yearId, questionId, accessToken }) => {
       <Header />
       <main className="flex h-screen w-full 2xl:justify-center">
         <Sidebar yearId={yearId} questionId={questionId} />
-        <Question {...data} yearId={yearId} accessToken={accessToken} />
+        <Question {...data} yearId={yearId} />
       </main>
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  query,
-}) => {
-  const { accessToken } = await getAccessToken(req, res)
-
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const fetchQuestion = async () => {
     const data = await request(
       process.env.NEXT_PUBLIC_HASURA_ENDPOINT as string,
@@ -70,7 +62,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       ...query,
-      accessToken,
       dehydratedState: dehydrate(queryClient),
     },
   }
