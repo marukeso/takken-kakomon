@@ -1421,6 +1421,14 @@ export type GetQuestionQueryVariables = Exact<{
 
 export type GetQuestionQuery = { __typename?: 'query_root', questions_by_pk?: { __typename?: 'questions', id: string, content: string, title: { __typename?: 'titles', content: string, subcategory: { __typename?: 'subcategories', content: string, category: { __typename?: 'categories', id: string, content: string } }, year: { __typename?: 'years', content: string } } } | null, choices: Array<{ __typename?: 'choices', id: string, content: string, is_answer: boolean }> };
 
+export type GetTitlesByYearAndSubcategoryQueryVariables = Exact<{
+  yearId?: InputMaybe<Scalars['String']>;
+  subcategoryId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetTitlesByYearAndSubcategoryQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }> };
+
 
 export const GetQuestionDocument = gql`
     query GetQuestion($questionId: String!) {
@@ -1448,6 +1456,17 @@ export const GetQuestionDocument = gql`
   }
 }
     `;
+export const GetTitlesByYearAndSubcategoryDocument = gql`
+    query GetTitlesByYearAndSubcategory($yearId: String, $subcategoryId: String) {
+  titles(
+    where: {_and: [{year_id: {_eq: $yearId}}, {subcategory_id: {_similar: $subcategoryId}}]}
+    order_by: {id: asc}
+  ) {
+    id
+    content
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1458,6 +1477,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     GetQuestion(variables: GetQuestionQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetQuestionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetQuestionQuery>(GetQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetQuestion', 'query');
+    },
+    GetTitlesByYearAndSubcategory(variables?: GetTitlesByYearAndSubcategoryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTitlesByYearAndSubcategoryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTitlesByYearAndSubcategoryQuery>(GetTitlesByYearAndSubcategoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTitlesByYearAndSubcategory', 'query');
     }
   };
 }
