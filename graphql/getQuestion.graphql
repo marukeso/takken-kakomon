@@ -1,0 +1,24 @@
+query GetQuestion($questionId: String!) {
+  questions_by_pk(id: $questionId) {
+    id
+    content
+    title {
+      content
+      subcategory {
+        content
+        category {
+          id
+          content
+        }
+      }
+      year {
+        content
+      }
+    }
+  }
+  choices(where: { question_id: { _eq: $questionId } }) {
+    id
+    content
+    is_answer
+  }
+}
