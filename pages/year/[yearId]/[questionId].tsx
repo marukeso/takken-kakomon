@@ -2,22 +2,18 @@ import Head from 'next/head'
 import { Sidebar } from '../../../components/Sidebar'
 import { GetServerSideProps, NextPage } from 'next'
 import { Question } from '../../../components/Question'
-import { QuestionData } from 'types/types'
-import request from 'graphql-request'
-import { GET_QUESTION } from 'queries/queries'
 import { Header } from '../../../components/Header'
-import { dehydrate, QueryClient, useQueryClient } from 'react-query'
+import { createHasuraClient } from 'util/hasuraClient'
+import { GetQuestionQuery } from 'graphql/generated/graphql'
 
 interface Props {
+  data: GetQuestionQuery
   yearId: string
   questionId: string
   accessToken?: string
 }
 
-const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
-  const queryClient = useQueryClient()
-  const data = queryClient.getQueryData<QuestionData>(['question', questionId])
-
+const QuestionPage: NextPage<Props> = ({ yearId, questionId, data }) => {
   return (
     <div className="overflow-hidden">
       <Head>
@@ -28,32 +24,19 @@ const QuestionPage: NextPage<Props> = ({ yearId, questionId }) => {
       <Header />
       <main className="flex h-screen w-full 2xl:justify-center">
         <Sidebar yearId={yearId} questionId={questionId} />
-        <Question {...data} yearId={yearId} />
+        <Question data={data} />
       </main>
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const fetchQuestion = async () => {
-    const data = await request(
-      process.env.NEXT_PUBLIC_HASURA_ENDPOINT as string,
-      GET_QUESTION,
-      {
-        questionId: query.questionId,
-      }
-    )
-    return data
-  }
+  const hasuraClient = createHasuraClient(null)
+  const data = await hasuraClient.GetQuestion({
+    questionId: query.questionId as string,
+  })
 
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(['question', query.questionId], fetchQuestion)
-
-  const Qdata = queryClient.getQueryData<QuestionData>([
-    'question',
-    query.questionId,
-  ])
-  if (!Qdata?.questions_by_pk) {
+  if (data.questions_by_pk === null) {
     return {
       notFound: true,
     }
@@ -62,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       ...query,
-      dehydratedState: dehydrate(queryClient),
+      data,
     },
   }
 }

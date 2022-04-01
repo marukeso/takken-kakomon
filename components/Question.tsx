@@ -1,18 +1,14 @@
 import { VFC, useState, useEffect } from 'react'
-import { QuestionsByPk, ChoicesEntity } from '../types/types'
 import confetti from 'canvas-confetti'
-// import { useMutateAnswer } from '../hooks/useMutateAnswer'
+import { GetQuestionQuery } from '../graphql/generated/graphql'
 
 interface Props {
-  yearId: string
-  questions_by_pk?: QuestionsByPk
-  choices?: ChoicesEntity[] | null
+  data: GetQuestionQuery
 }
 
-export const Question: VFC<Props> = ({
-  questions_by_pk: question,
-  choices,
-}) => {
+export const Question: VFC<Props> = ({ data }) => {
+  const { questions_by_pk: question, choices } = data
+
   // answer animation
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
   const [correctColor, setCorrectColor] = useState<string>('')
@@ -57,16 +53,16 @@ export const Question: VFC<Props> = ({
     <div className="flex grow justify-center overflow-scroll 2xl:ml-10 2xl:grow-0">
       <div className="h-max max-w-[800px] py-24 px-5">
         {/* title and question */}
-        <p className="text-lg font-medium">{question?.title?.content}</p>
+        <p className="text-lg font-medium">{question?.title.content}</p>
         <div className="mt-2 mb-7 flex space-x-1">
           <div className="badge badge-outline text-xs">
-            {question?.title?.year?.content}
+            {question?.title.year.content}
           </div>
           <div className="badge badge-outline text-xs">
-            {question?.title?.subcategory?.category.content}
+            {question?.title.subcategory.category.content}
           </div>
           <div className="badge badge-outline text-xs">
-            {question?.title?.subcategory?.content}
+            {question?.title.subcategory.content}
           </div>
         </div>
 
