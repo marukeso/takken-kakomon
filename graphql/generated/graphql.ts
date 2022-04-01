@@ -1421,6 +1421,26 @@ export type GetQuestionQueryVariables = Exact<{
 
 export type GetQuestionQuery = { __typename?: 'query_root', questions_by_pk?: { __typename?: 'questions', id: string, content: string, title: { __typename?: 'titles', content: string, subcategory: { __typename?: 'subcategories', content: string, category: { __typename?: 'categories', id: string, content: string } }, year: { __typename?: 'years', content: string } } } | null, choices: Array<{ __typename?: 'choices', id: string, content: string, is_answer: boolean }> };
 
+export type GetTitlesByYearAndSubcategoryQueryVariables = Exact<{
+  yearId?: InputMaybe<Scalars['String']>;
+  subcategoryId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetTitlesByYearAndSubcategoryQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }> };
+
+export type GetYearIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetYearIdQuery = { __typename?: 'query_root', years: Array<{ __typename?: 'years', id: string }> };
+
+export type GetYearTitlesWithHeadingQueryVariables = Exact<{
+  yearId: Scalars['String'];
+}>;
+
+
+export type GetYearTitlesWithHeadingQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }>, years_by_pk?: { __typename?: 'years', content: string } | null };
+
 
 export const GetQuestionDocument = gql`
     query GetQuestion($questionId: String!) {
@@ -1448,6 +1468,35 @@ export const GetQuestionDocument = gql`
   }
 }
     `;
+export const GetTitlesByYearAndSubcategoryDocument = gql`
+    query GetTitlesByYearAndSubcategory($yearId: String, $subcategoryId: String) {
+  titles(
+    where: {_and: [{year_id: {_eq: $yearId}}, {subcategory_id: {_similar: $subcategoryId}}]}
+    order_by: {id: asc}
+  ) {
+    id
+    content
+  }
+}
+    `;
+export const GetYearIdDocument = gql`
+    query GetYearId {
+  years {
+    id
+  }
+}
+    `;
+export const GetYearTitlesWithHeadingDocument = gql`
+    query GetYearTitlesWithHeading($yearId: String!) {
+  titles(where: {year_id: {_eq: $yearId}}, order_by: {id: asc}) {
+    id
+    content
+  }
+  years_by_pk(id: $yearId) {
+    content
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1458,6 +1507,15 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     GetQuestion(variables: GetQuestionQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetQuestionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetQuestionQuery>(GetQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetQuestion', 'query');
+    },
+    GetTitlesByYearAndSubcategory(variables?: GetTitlesByYearAndSubcategoryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetTitlesByYearAndSubcategoryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTitlesByYearAndSubcategoryQuery>(GetTitlesByYearAndSubcategoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTitlesByYearAndSubcategory', 'query');
+    },
+    GetYearId(variables?: GetYearIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetYearIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetYearIdQuery>(GetYearIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetYearId', 'query');
+    },
+    GetYearTitlesWithHeading(variables: GetYearTitlesWithHeadingQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetYearTitlesWithHeadingQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetYearTitlesWithHeadingQuery>(GetYearTitlesWithHeadingDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetYearTitlesWithHeading', 'query');
     }
   };
 }
