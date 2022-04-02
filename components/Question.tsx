@@ -1,6 +1,9 @@
 import { VFC, useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
+import { useQState } from 'hooks/useQState'
+import { useAuth0 } from '@auth0/auth0-react'
+import { HasuraClient } from 'util/hasuraClient'
 
 interface Props {
   data: GetQuestionQuery
@@ -15,7 +18,8 @@ export const Question: VFC<Props> = ({ data }) => {
   const [wrongColor, setWrongColor] = useState<string>('')
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
 
-  // const { creactAnswerMutation } = useMutateAnswer(accessToken as string)
+  const [hasuraClient] = useQState<HasuraClient | undefined>('hasuraClient')
+  const { isAuthenticated } = useAuth0()
 
   const handleOnClick = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -33,13 +37,13 @@ export const Question: VFC<Props> = ({ data }) => {
         origin: { y: 0.4 },
       })
     }
-    // if (user && question) {
-    //   creactAnswerMutation.mutate({
-    //     categoryId: question?.title?.subcategory?.category.id as string,
-    //     isCorrect: isCorrect ? true : false,
-    //     titleId: question?.id,
-    //   })
-    // }
+    if (isAuthenticated) {
+      hasuraClient?.InsertAnswersOne({
+        categoryId: question?.title.subcategory.category.id as string,
+        isCorrect: isCorrect ? true : false,
+        titleId: question?.id as string,
+      })
+    }
   }
 
   useEffect(() => {

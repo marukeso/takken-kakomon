@@ -3,8 +3,11 @@ import { MoonIcon } from '@heroicons/react/solid'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState, VFC } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export const Header: VFC = () => {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   useEffect(() => setMounted(true), [])
@@ -26,31 +29,34 @@ export const Header: VFC = () => {
         )}
       </div>
 
-      <div className="dropdown-end dropdown">
-        <label
-          tabIndex={0}
-          className="flex cursor-pointer items-center space-x-2"
-        >
-          <div className="avatar">
-            <div className="h-8 w-8 rounded-full">
-              {/* <img src={user.picture as string} /> */}
+      {isAuthenticated ? (
+        <div className="dropdown-end dropdown">
+          <label
+            tabIndex={0}
+            className="flex cursor-pointer items-center space-x-2"
+          >
+            <div className="avatar">
+              <div className="h-8 w-8 rounded-full">
+                <img src={user?.picture} />
+              </div>
             </div>
-          </div>
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 p-2 shadow-lg"
-        >
-          <li>
-            <Link href="/api/auth/logout">
-              <a>ログアウト</a>
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <Link href="/api/auth/login">
-        <a className="text-primary">ログイン</a>
-      </Link>
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 p-2 shadow-lg"
+          >
+            <li>
+              <a onClick={() => logout({ returnTo: window.location.origin })}>
+                ログアウト
+              </a>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <button className="text-primary" onClick={() => loginWithRedirect()}>
+          ログイン
+        </button>
+      )}
     </header>
   )
 }

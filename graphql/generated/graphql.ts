@@ -1441,6 +1441,15 @@ export type GetYearTitlesWithHeadingQueryVariables = Exact<{
 
 export type GetYearTitlesWithHeadingQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }>, years_by_pk?: { __typename?: 'years', content: string } | null };
 
+export type InsertAnswersOneMutationVariables = Exact<{
+  categoryId: Scalars['String'];
+  isCorrect: Scalars['Boolean'];
+  titleId: Scalars['String'];
+}>;
+
+
+export type InsertAnswersOneMutation = { __typename?: 'mutation_root', insert_answers_one?: { __typename?: 'answers', category_id: string, is_correct: boolean, title_id: string } | null };
+
 
 export const GetQuestionDocument = gql`
     query GetQuestion($questionId: String!) {
@@ -1497,6 +1506,17 @@ export const GetYearTitlesWithHeadingDocument = gql`
   }
 }
     `;
+export const InsertAnswersOneDocument = gql`
+    mutation InsertAnswersOne($categoryId: String!, $isCorrect: Boolean!, $titleId: String!) {
+  insert_answers_one(
+    object: {category_id: $categoryId, is_correct: $isCorrect, title_id: $titleId}
+  ) {
+    category_id
+    is_correct
+    title_id
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1516,6 +1536,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetYearTitlesWithHeading(variables: GetYearTitlesWithHeadingQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetYearTitlesWithHeadingQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetYearTitlesWithHeadingQuery>(GetYearTitlesWithHeadingDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetYearTitlesWithHeading', 'query');
+    },
+    InsertAnswersOne(variables: InsertAnswersOneMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertAnswersOneMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<InsertAnswersOneMutation>(InsertAnswersOneDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'InsertAnswersOne', 'mutation');
     }
   };
 }
