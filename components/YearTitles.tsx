@@ -1,15 +1,54 @@
-import { VFC } from 'react'
+import { useEffect, VFC } from 'react'
 import { Loading } from '@/components/Loading'
 import Link from 'next/link'
-import { useQueryYearTitlesWithHeading } from 'hooks/useQueryYearTItlesWithHeading'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useQuery } from 'react-query'
+import { HasuraClient } from 'util/hasuraClient'
+import {
+  GetYearTitlesWithHeadingAndAnswersQuery,
+  GetYearTitlesWithHeadingQuery,
+} from '../graphql/generated/graphql'
+import { useQState } from 'hooks/useQState'
+
+interface Answer {
+  is_correct: boolean
+  category_id: string
+}
+
+export const sumCorrect = (array: Answer[]) => {
+  return array.filter((a) => a.is_correct).length
+}
+
+export const badgeStatus = (correctNum: number, total: number) => {
+  if (correctNum / total >= 0.7) {
+    return 'badge-success'
+  }
+  if (correctNum / total >= 0.3) {
+    return 'badge-warning'
+  }
+  return 'badge-error'
+}
 
 interface Props {
   yearId: string
 }
 
 export const YearTitles: VFC<Props> = ({ yearId }) => {
-  const { isLoading, data } = useQueryYearTitlesWithHeading(yearId)
-  const { titles, years_by_pk: year } = data || {}
+  const { isAuthenticated } = useAuth0()
+  const [hasuraClient] = useQState<HasuraClient>('hasuraClient')
+
+  let fetchFn
+  if (isAuthenticated) {
+    fetchFn = () => hasuraClient?.GetYearTitlesWithHeadingAndAnswers({ yearId })
+  } else {
+    fetchFn = () => hasuraClient?.GetYearTitlesWithHeading({ yearId })
+  }
+
+  const { data, isLoading } = useQuery<
+    GetYearTitlesWithHeadingQuery | GetYearTitlesWithHeadingAndAnswersQuery,
+    Error
+  >(['yearTitlesWithHeading', yearId], fetchFn, { staleTime: 1 })
+  console.log(isAuthenticated, data)
 
   if (isLoading) return <Loading />
 
@@ -17,16 +56,27 @@ export const YearTitles: VFC<Props> = ({ yearId }) => {
     <div className="m-auto my-24 flex w-[900px] justify-between">
       <div className="w-[520px]">
         <h1 className="text-kyokasho mb-6 px-2 text-2xl font-bold">
-          {year?.content}試験
+          {data?.years_by_pk?.content}試験
         </h1>
 
-        <ul className="">
-          {titles?.map((title) => (
+        <ul>
+          {data?.titles.map((title) => (
             <li key={title.id}>
               <Link href={`/year/${yearId}/${title.id}`}>
                 <a className="flex items-center justify-between rounded p-2 hover:bg-base-200">
                   <span>{title.content}</span>
-                  {/* <span className="badge badge-success">3/3</span> */}
+                  {isAuthenticated &&
+                    'answers' in title &&
+                    title.answers?.length > 0 && (
+                      <span
+                        className={`badge ${badgeStatus(
+                          sumCorrect(title.answers),
+                          title.answers.length
+                        )}`}
+                      >
+                        {sumCorrect(title.answers)}/{title.answers.length}
+                      </span>
+                    )}
                 </a>
               </Link>
             </li>
