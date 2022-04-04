@@ -41,9 +41,16 @@ export const TitleListWithCheckbox: VFC<Props> = ({ yearId, questionId }) => {
               {answerList.map((item) => {
                 if (item.questionId === title.id) {
                   if (item.isCorrect)
-                    return <CheckIcon className="w-5 text-success" />
+                    return (
+                      <CheckIcon
+                        key={item.questionId}
+                        className="w-5 text-success"
+                      />
+                    )
                   if (!item.isCorrect)
-                    return <XIcon className="w-5 text-error" />
+                    return (
+                      <XIcon key={item.questionId} className="w-5 text-error" />
+                    )
                 }
                 return null
               })}

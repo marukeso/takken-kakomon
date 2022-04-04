@@ -5,6 +5,7 @@ import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
 import { useUser } from '@auth0/nextjs-auth0'
 import { answerListItem } from 'types/types'
 import { useQState } from '../hooks/useQState'
+import { useLocalStorage } from 'hooks/useLocalStorage'
 
 interface Props {
   data: GetQuestionQuery
@@ -27,9 +28,13 @@ export const Question: VFC<Props> = ({
   const [wrongColor, setWrongColor] = useState<string>('')
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
 
-  const [answerList, setAnswerList] = useQState<answerListItem[]>(
+  const [storageList, setStorageList] = useLocalStorage<answerListItem[]>(
     `answerList-${yearId}`,
     []
+  )
+  const [answerList, setAnswerList] = useQState<answerListItem[]>(
+    `answerList-${yearId}`,
+    storageList
   )
 
   let hasuraClient: HasuraClient
@@ -57,6 +62,8 @@ export const Question: VFC<Props> = ({
         origin: { y: 0.4 },
       })
     }
+
+    // update answer list state
     setAnswerList([
       ...answerList.filter((item) => item.questionId !== questionId),
       {
@@ -64,6 +71,15 @@ export const Question: VFC<Props> = ({
         isCorrect: isCorrect ? true : false,
       },
     ])
+    // localStorage
+    setStorageList([
+      ...storageList.filter((item) => item.questionId !== questionId),
+      {
+        questionId,
+        isCorrect: isCorrect ? true : false,
+      },
+    ])
+
     if (user) {
       hasuraClient.InsertAnswersOne({
         categoryId: question?.title.subcategory.category.id as string,
@@ -72,6 +88,10 @@ export const Question: VFC<Props> = ({
       })
     }
   }
+
+  useEffect(() => {
+    setAnswerList(storageList)
+  }, [storageList])
 
   useEffect(() => {
     setIsAnswered(false)
