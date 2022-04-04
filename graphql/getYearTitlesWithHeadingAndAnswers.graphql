@@ -1,0 +1,13 @@
+query GetYearTitlesWithHeadingAndAnswers($yearId: String!) {
+  titles(where: { year_id: { _eq: $yearId } }, order_by: { id: asc }) {
+    id
+    content
+    answers {
+      is_correct
+      category_id
+    }
+  }
+  years_by_pk(id: $yearId) {
+    content
+  }
+}

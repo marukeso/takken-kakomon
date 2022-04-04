@@ -1441,6 +1441,13 @@ export type GetYearTitlesWithHeadingQueryVariables = Exact<{
 
 export type GetYearTitlesWithHeadingQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }>, years_by_pk?: { __typename?: 'years', content: string } | null };
 
+export type GetYearTitlesWithHeadingAndAnswersQueryVariables = Exact<{
+  yearId: Scalars['String'];
+}>;
+
+
+export type GetYearTitlesWithHeadingAndAnswersQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string, answers: Array<{ __typename?: 'answers', is_correct: boolean, category_id: string }> }>, years_by_pk?: { __typename?: 'years', content: string } | null };
+
 export type InsertAnswersOneMutationVariables = Exact<{
   categoryId: Scalars['String'];
   isCorrect: Scalars['Boolean'];
@@ -1506,6 +1513,21 @@ export const GetYearTitlesWithHeadingDocument = gql`
   }
 }
     `;
+export const GetYearTitlesWithHeadingAndAnswersDocument = gql`
+    query GetYearTitlesWithHeadingAndAnswers($yearId: String!) {
+  titles(where: {year_id: {_eq: $yearId}}, order_by: {id: asc}) {
+    id
+    content
+    answers {
+      is_correct
+      category_id
+    }
+  }
+  years_by_pk(id: $yearId) {
+    content
+  }
+}
+    `;
 export const InsertAnswersOneDocument = gql`
     mutation InsertAnswersOne($categoryId: String!, $isCorrect: Boolean!, $titleId: String!) {
   insert_answers_one(
@@ -1536,6 +1558,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetYearTitlesWithHeading(variables: GetYearTitlesWithHeadingQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetYearTitlesWithHeadingQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetYearTitlesWithHeadingQuery>(GetYearTitlesWithHeadingDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetYearTitlesWithHeading', 'query');
+    },
+    GetYearTitlesWithHeadingAndAnswers(variables: GetYearTitlesWithHeadingAndAnswersQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetYearTitlesWithHeadingAndAnswersQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetYearTitlesWithHeadingAndAnswersQuery>(GetYearTitlesWithHeadingAndAnswersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetYearTitlesWithHeadingAndAnswers', 'query');
     },
     InsertAnswersOne(variables: InsertAnswersOneMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertAnswersOneMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<InsertAnswersOneMutation>(InsertAnswersOneDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'InsertAnswersOne', 'mutation');

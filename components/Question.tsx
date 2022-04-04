@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { useQState } from 'hooks/useQState'
 import { useAuth0 } from '@auth0/auth0-react'
-import { HasuraClient } from 'util/hasuraClient'
+import { HasuraClient } from 'utils/hasuraClient'
 
 interface Props {
   data: GetQuestionQuery

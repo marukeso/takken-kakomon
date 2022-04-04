@@ -5,9 +5,9 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useEffect, useState } from 'react'
-import adobeLoader from '../util/adobeLoader'
+import adobeLoader from '../utils/adobeLoader'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import { createHasuraClient } from 'util/hasuraClient'
+import { createHasuraClient } from 'utils/hasuraClient'
 import { useQState } from 'hooks/useQState'
 
 function MyApp({ Component, pageProps }: AppProps) {
