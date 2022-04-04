@@ -1,4 +1,4 @@
-import { useEffect, VFC } from 'react'
+import { VFC } from 'react'
 import { Loading } from '@/components/Loading'
 import Link from 'next/link'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -9,25 +9,7 @@ import {
   GetYearTitlesWithHeadingQuery,
 } from '../graphql/generated/graphql'
 import { useQState } from 'hooks/useQState'
-
-interface Answer {
-  is_correct: boolean
-  category_id: string
-}
-
-export const sumCorrect = (array: Answer[]) => {
-  return array.filter((a) => a.is_correct).length
-}
-
-export const badgeStatus = (correctNum: number, total: number) => {
-  if (correctNum / total >= 0.7) {
-    return 'badge-success'
-  }
-  if (correctNum / total >= 0.3) {
-    return 'badge-warning'
-  }
-  return 'badge-error'
-}
+import { badgeStatus, sumCorrect } from 'util/badgeStatus'
 
 interface Props {
   yearId: string
@@ -48,7 +30,6 @@ export const YearTitles: VFC<Props> = ({ yearId }) => {
     GetYearTitlesWithHeadingQuery | GetYearTitlesWithHeadingAndAnswersQuery,
     Error
   >(['yearTitlesWithHeading', yearId], fetchFn, { staleTime: 1 })
-  console.log(isAuthenticated, data)
 
   if (isLoading) return <Loading />
 
