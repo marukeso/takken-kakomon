@@ -30,7 +30,12 @@ const QuestionPage: NextPage<Props> = ({
       <Header />
       <main className="flex h-screen w-full 2xl:justify-center">
         <Sidebar yearId={yearId} questionId={questionId} />
-        <Question data={data} accessToken={accessToken} />
+        <Question
+          data={data}
+          accessToken={accessToken}
+          questionId={questionId}
+          yearId={yearId}
+        />
       </main>
     </div>
   )
