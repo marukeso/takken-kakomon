@@ -3,13 +3,22 @@ import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
 import { useUser } from '@auth0/nextjs-auth0'
+import { answerListItem } from 'types/types'
+import { useQState } from '../hooks/useQState'
 
 interface Props {
   data: GetQuestionQuery
   accessToken?: string
+  questionId: string
+  yearId: string
 }
 
-export const Question: VFC<Props> = ({ data, accessToken }) => {
+export const Question: VFC<Props> = ({
+  data,
+  accessToken,
+  questionId,
+  yearId,
+}) => {
   const { questions_by_pk: question, choices } = data
 
   // answer animation
@@ -17,6 +26,11 @@ export const Question: VFC<Props> = ({ data, accessToken }) => {
   const [correctColor, setCorrectColor] = useState<string>('')
   const [wrongColor, setWrongColor] = useState<string>('')
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
+
+  const [answerList, setAnswerList] = useQState<answerListItem[]>(
+    `answerList-${yearId}`,
+    []
+  )
 
   let hasuraClient: HasuraClient
   if (accessToken) {
@@ -43,6 +57,13 @@ export const Question: VFC<Props> = ({ data, accessToken }) => {
         origin: { y: 0.4 },
       })
     }
+    setAnswerList([
+      ...answerList.filter((item) => item.questionId !== questionId),
+      {
+        questionId,
+        isCorrect: isCorrect ? true : false,
+      },
+    ])
     if (user) {
       hasuraClient.InsertAnswersOne({
         categoryId: question?.title.subcategory.category.id as string,

@@ -7,6 +7,8 @@ import {
 import { TitleListWithCheckbox } from './TitleListWithCheckbox'
 import Link from 'next/link'
 import { useQueryTitlesByYearAndSubcategory } from 'hooks/useQueryTitlesByYearAndSubcategory'
+import { answerListItem } from 'types/types'
+import { useQState } from 'hooks/useQState'
 
 interface Props {
   yearId: string
@@ -22,6 +24,13 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
     prev = data.titles[index - 1] ? data.titles[index - 1] : null
     next = data.titles[index + 1] ? data.titles[index + 1] : null
   }
+
+  // right bottom answer list
+  const [answerList, setAnswerList] = useQState<answerListItem[]>(
+    `answerList-${yearId}`,
+    []
+  )
+  const correctLength = answerList.filter((item) => item.isCorrect).length
 
   return (
     <div className="relative w-80 overflow-scroll border-r border-base-300 bg-base-100 px-4 py-24 text-sm">
@@ -41,12 +50,14 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
 
       {/* 終了 */}
       <div className="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-base-300 bg-base-100 py-2 px-8">
-        <Link href={`/year/${yearId}`}>
-          <a className="flex w-24 cursor-pointer items-center space-x-2 font-bold">
-            <ArrowNarrowLeftIcon className="w-6" />
-            <span>終了する</span>
-          </a>
-        </Link>
+        <div className="w-44">
+          <Link href={`/year/${yearId}`}>
+            <a className="flex w-max cursor-pointer items-center space-x-2 font-bold">
+              <ArrowNarrowLeftIcon className="w-6" />
+              <span>終了する</span>
+            </a>
+          </Link>
+        </div>
 
         {/* prev next button */}
         <div className="flex w-[240px] justify-between">
@@ -75,7 +86,17 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
           )}
         </div>
 
-        <div className="h-2 w-24"></div>
+        <div className="flex w-44 items-center justify-end">
+          <div>
+            {answerList.length}/50 - {correctLength}問正解
+          </div>
+          <div
+            className="btn btn-outline btn-xs ml-2"
+            onClick={() => setAnswerList([])}
+          >
+            クリア
+          </div>
+        </div>
       </div>
     </div>
   )

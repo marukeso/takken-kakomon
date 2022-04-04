@@ -97,7 +97,7 @@ export const YearTitles: VFC<Props> = ({ yearId, data }) => {
           {user && (
             <div className="flex flex-wrap text-center">
               <div className="w-full border-b border-base-300 py-1 text-xs">
-                正解率 (正解/回答)
+                正解率 (正解/回答数)
               </div>
               <div className="grid w-3/5 grid-cols-2">
                 <div className="border-r border-b border-base-300 py-3 text-center">
