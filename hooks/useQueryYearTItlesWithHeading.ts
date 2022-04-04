@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { createHasuraClient } from 'util/hasuraClient'
+import { createHasuraClient } from 'utils/hasuraClient'
 import { GetYearTitlesWithHeadingQuery } from '../graphql/generated/graphql'
 
 export const useQueryYearTitlesWithHeading = (yearId: string) => {

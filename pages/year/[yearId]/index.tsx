@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { DefaultLayout } from '../../../components/DefaultLayout'
 import { GetServerSideProps } from 'next'
-import { createHasuraClient } from 'util/hasuraClient'
+import { createHasuraClient } from 'utils/hasuraClient'
 import { YearTitles } from '../../../components/YearTitles'
 
 interface Props {

@@ -3,13 +3,13 @@ import { Loading } from '@/components/Loading'
 import Link from 'next/link'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery } from 'react-query'
-import { HasuraClient } from 'util/hasuraClient'
+import { HasuraClient } from 'utils/hasuraClient'
 import {
   GetYearTitlesWithHeadingAndAnswersQuery,
   GetYearTitlesWithHeadingQuery,
 } from '../graphql/generated/graphql'
 import { useQState } from 'hooks/useQState'
-import { badgeStatus, sumCorrect } from 'util/badgeStatus'
+import { badgeStatus, sumCorrect } from 'utils/badgeStatus'
 
 interface Props {
   yearId: string

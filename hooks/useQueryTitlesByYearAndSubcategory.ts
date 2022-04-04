@@ -1,6 +1,6 @@
 import { GetTitlesByYearAndSubcategoryQuery } from 'graphql/generated/graphql'
 import { useQuery } from 'react-query'
-import { createHasuraClient } from 'util/hasuraClient'
+import { createHasuraClient } from 'utils/hasuraClient'
 
 export const useQueryTitlesByYearAndSubcategory = (yearId: string) => {
   const hasuraClient = createHasuraClient(null)

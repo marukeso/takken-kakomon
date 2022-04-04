@@ -3,7 +3,7 @@ import { Sidebar } from '../../../components/Sidebar'
 import { GetServerSideProps, NextPage } from 'next'
 import { Question } from '../../../components/Question'
 import { Header } from '../../../components/Header'
-import { createHasuraClient } from 'util/hasuraClient'
+import { createHasuraClient } from 'utils/hasuraClient'
 import { GetQuestionQuery } from 'graphql/generated/graphql'
 
 interface Props {
