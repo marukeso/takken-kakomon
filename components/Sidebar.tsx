@@ -9,7 +9,6 @@ import Link from 'next/link'
 import { useQueryTitlesByYearAndSubcategory } from 'hooks/useQueryTitlesByYearAndSubcategory'
 import { answerListItem } from 'types/types'
 import { useQState } from 'hooks/useQState'
-import { useLocalStorage } from 'hooks/useLocalStorage'
 
 interface Props {
   yearId: string
@@ -27,10 +26,6 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
   }
 
   // right bottom answer list
-  const [storageList, setStorageList] = useLocalStorage<answerListItem[]>(
-    `answerList-${yearId}`,
-    []
-  )
   const [answerList, setAnswerList] = useQState<answerListItem[]>(
     `answerList-${yearId}`,
     []
@@ -99,7 +94,6 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
             className="btn btn-outline btn-xs ml-2"
             onClick={() => {
               setAnswerList([])
-              setStorageList([])
             }}
           >
             クリア

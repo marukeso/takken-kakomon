@@ -23,8 +23,6 @@ export const TitleListWithCheckbox: VFC<Props> = ({ yearId, questionId }) => {
 
   return (
     <>
-      {/* <hr className="my-4 border-t border-base-300" /> */}
-      {/* title list */}
       {data?.titles.map((title) => (
         <Link key={title.id} href={`/year/${yearId}/${title.id}`}>
           <a className="group flex items-center rounded-md py-3 px-4 hover:bg-base-200">
