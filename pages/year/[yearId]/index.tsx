@@ -4,12 +4,18 @@ import { DefaultLayout } from '../../../components/DefaultLayout'
 import { GetServerSideProps } from 'next'
 import { createHasuraClient } from 'utils/hasuraClient'
 import { YearTitles } from '../../../components/YearTitles'
+import { getSession } from '@auth0/nextjs-auth0'
+import {
+  GetYearTitlesWithHeadingAndAnswersQuery,
+  GetYearTitlesWithHeadingQuery,
+} from 'graphql/generated/graphql'
 
 interface Props {
+  data: GetYearTitlesWithHeadingQuery | GetYearTitlesWithHeadingAndAnswersQuery
   yearId: string
 }
 
-const QuestionList: NextPage<Props> = ({ yearId }) => {
+const QuestionList: NextPage<Props> = ({ yearId, data }) => {
   return (
     <div>
       <Head>
@@ -18,17 +24,35 @@ const QuestionList: NextPage<Props> = ({ yearId }) => {
       </Head>
 
       <DefaultLayout>
-        <YearTitles yearId={yearId} />
+        <YearTitles yearId={yearId} data={data} />
       </DefaultLayout>
     </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const hasuraClient = createHasuraClient(null)
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  query,
+}) => {
+  const session = getSession(req, res)
+
+  let hasuraClient
+  let data
+  if (session?.accessToken) {
+    hasuraClient = createHasuraClient(session.accessToken)
+    data = await hasuraClient.GetYearTitlesWithHeadingAndAnswers({
+      yearId: query.yearId as string,
+    })
+  } else {
+    hasuraClient = createHasuraClient(null)
+    data = await hasuraClient.GetYearTitlesWithHeading({
+      yearId: query.yearId as string,
+    })
+  }
+
   const { years } = await hasuraClient.GetYearId()
   const isExist = years.find((year) => year.id === query.yearId)
-
   if (!isExist) {
     return {
       notFound: true,
@@ -38,6 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       ...query,
+      data,
     },
   }
 }

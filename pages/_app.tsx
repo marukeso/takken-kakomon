@@ -6,9 +6,7 @@ import { Hydrate } from 'react-query/hydration'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useEffect, useState } from 'react'
 import adobeLoader from '../utils/adobeLoader'
-import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import { createHasuraClient } from 'utils/hasuraClient'
-import { useQState } from 'hooks/useQState'
+import { UserProvider } from '@auth0/nextjs-auth0'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -27,45 +25,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       })
   )
 
-  const AppInit = () => {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-    const [hasuraClient, setHasuraClient] = useQState(
-      'hasuraClient',
-      createHasuraClient(null)
-    )
-
-    useEffect(() => {
-      if (isAuthenticated) {
-        getAccessTokenSilently().then((token) => {
-          const client = createHasuraClient(token)
-          setHasuraClient(client)
-        })
-      } else {
-        const client = createHasuraClient(null)
-        setHasuraClient(client)
-      }
-    }, [isAuthenticated])
-
-    return null
-  }
+  const { user } = pageProps
 
   return (
-    <Auth0Provider
-      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
-      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string}
-      redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI as string}
-      audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE as string}
-    >
+    <UserProvider user={user}>
       <ThemeProvider defaultTheme="light">
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <AppInit />
             <Component {...pageProps} />
           </Hydrate>
           <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
-    </Auth0Provider>
+    </UserProvider>
   )
 }
 
