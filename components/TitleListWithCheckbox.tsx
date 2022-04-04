@@ -15,15 +15,15 @@ export const TitleListWithCheckbox: VFC<Props> = ({ yearId, questionId }) => {
 
   return (
     <>
-      {/* checkboxes */}
       {/* <hr className="my-4 border-t border-base-300" /> */}
-
       {/* title list */}
       {data?.titles.map((title) => (
         <Link key={title.id} href={`/year/${yearId}/${title.id}`}>
           <a
-            className={`block rounded-md py-3 px-4 opacity-20 ${
-              questionId === title.id ? 'opacity-100' : 'hover:opacity-100'
+            className={`block rounded-md py-3 px-4 opacity-20 hover:bg-base-200 ${
+              questionId === title.id
+                ? 'font-medium opacity-100'
+                : 'hover:opacity-100'
             }`}
           >
             <p className="truncate">{title.content}</p>

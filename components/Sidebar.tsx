@@ -24,7 +24,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
   }
 
   return (
-    <div className="relative w-80 overflow-scroll bg-base-200 px-4 py-24 text-sm">
+    <div className="relative w-80 overflow-scroll border-r border-base-300 bg-base-100 px-4 py-24 text-sm">
       {/* <Link href="/">
           <a className="flex cursor-pointer items-center space-x-2 rounded-md py-3 px-4 transition hover:bg-base-300">
             <HomeIcon className="w-6" />
