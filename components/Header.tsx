@@ -3,10 +3,10 @@ import { MoonIcon } from '@heroicons/react/solid'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState, VFC } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useUser } from '@auth0/nextjs-auth0'
 
 export const Header: VFC = () => {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { user } = useUser()
 
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -29,7 +29,7 @@ export const Header: VFC = () => {
         )}
       </div>
 
-      {isAuthenticated ? (
+      {user ? (
         <div className="dropdown-end dropdown">
           <label
             tabIndex={0}
@@ -37,7 +37,7 @@ export const Header: VFC = () => {
           >
             <div className="avatar">
               <div className="h-8 w-8 rounded-full">
-                <img src={user?.picture} />
+                <img src={user?.picture as string} />
               </div>
             </div>
           </label>
@@ -46,16 +46,16 @@ export const Header: VFC = () => {
             className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 p-2 shadow-lg"
           >
             <li>
-              <a onClick={() => logout({ returnTo: window.location.origin })}>
-                ログアウト
-              </a>
+              <Link href="/api/auth/logout">
+                <a>ログアウト</a>
+              </Link>
             </li>
           </ul>
         </div>
       ) : (
-        <button className="text-primary" onClick={() => loginWithRedirect()}>
-          ログイン
-        </button>
+        <Link href="/api/auth/login">
+          <a className="text-primary">ログイン</a>
+        </Link>
       )}
     </header>
   )
