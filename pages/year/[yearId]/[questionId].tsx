@@ -5,7 +5,7 @@ import { Question } from '../../../components/Question'
 import { Header } from '../../../components/Header'
 import { createHasuraClient } from 'utils/hasuraClient'
 import { GetQuestionQuery } from 'graphql/generated/graphql'
-import { getAccessToken } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 
 interface Props {
   data: GetQuestionQuery
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   query,
 }) => {
-  const { accessToken } = await getAccessToken(req, res)
+  const session = getSession(req, res)
 
   const hasuraClient = createHasuraClient(null)
   const data = await hasuraClient.GetQuestion({
@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       ...query,
       data,
-      accessToken,
+      accessToken: session?.accessToken || null,
     },
   }
 }
