@@ -1439,14 +1439,14 @@ export type GetYearTitlesWithHeadingQueryVariables = Exact<{
 }>;
 
 
-export type GetYearTitlesWithHeadingQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string }>, years_by_pk?: { __typename?: 'years', content: string } | null };
+export type GetYearTitlesWithHeadingQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string, subcategory_id: string }>, years_by_pk?: { __typename?: 'years', content: string } | null };
 
 export type GetYearTitlesWithHeadingAndAnswersQueryVariables = Exact<{
   yearId: Scalars['String'];
 }>;
 
 
-export type GetYearTitlesWithHeadingAndAnswersQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string, answers: Array<{ __typename?: 'answers', is_correct: boolean, category_id: string }> }>, years_by_pk?: { __typename?: 'years', content: string } | null };
+export type GetYearTitlesWithHeadingAndAnswersQuery = { __typename?: 'query_root', titles: Array<{ __typename?: 'titles', id: string, content: string, subcategory_id: string, answers: Array<{ __typename?: 'answers', is_correct: boolean, category_id: string }> }>, years_by_pk?: { __typename?: 'years', content: string } | null };
 
 export type InsertAnswersOneMutationVariables = Exact<{
   categoryId: Scalars['String'];
@@ -1507,6 +1507,7 @@ export const GetYearTitlesWithHeadingDocument = gql`
   titles(where: {year_id: {_eq: $yearId}}, order_by: {id: asc}) {
     id
     content
+    subcategory_id
   }
   years_by_pk(id: $yearId) {
     content
@@ -1518,6 +1519,7 @@ export const GetYearTitlesWithHeadingAndAnswersDocument = gql`
   titles(where: {year_id: {_eq: $yearId}}, order_by: {id: asc}) {
     id
     content
+    subcategory_id
     answers {
       is_correct
       category_id
