@@ -3,8 +3,8 @@ import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
 import { useUser } from '@auth0/nextjs-auth0'
-import { answerListItem } from 'types/types'
-import { useQState } from '../hooks/useQState'
+import { useRecoilState } from 'recoil'
+import { answerListState } from 'atoms/answerLIstAtom'
 
 interface Props {
   data: GetQuestionQuery
@@ -27,10 +27,7 @@ export const Question: VFC<Props> = ({
   const [wrongColor, setWrongColor] = useState<string>('')
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
 
-  const [answerList, setAnswerList] = useQState<answerListItem[]>(
-    `answerList-${yearId}`,
-    []
-  )
+  const [answerList, setAnswerList] = useRecoilState(answerListState)
 
   let hasuraClient: HasuraClient
   if (accessToken) {
@@ -62,6 +59,7 @@ export const Question: VFC<Props> = ({
     setAnswerList([
       ...answerList.filter((item) => item.questionId !== questionId),
       {
+        yearId,
         questionId,
         isCorrect: isCorrect ? true : false,
       },

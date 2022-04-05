@@ -3,8 +3,8 @@ import { Loading } from './Loading'
 import Link from 'next/link'
 import { useQueryTitlesByYearAndSubcategory } from '../hooks/useQueryTitlesByYearAndSubcategory'
 import { CheckIcon, XIcon } from '@heroicons/react/outline'
-import { answerListItem } from 'types/types'
-import { useQState } from 'hooks/useQState'
+import { answerListState } from 'atoms/answerLIstAtom'
+import { useRecoilValue } from 'recoil'
 
 interface Props {
   yearId: string
@@ -14,10 +14,7 @@ interface Props {
 export const TitleListWithCheckbox: VFC<Props> = ({ yearId, questionId }) => {
   const { isLoading, data } = useQueryTitlesByYearAndSubcategory(yearId)
 
-  const [answerList, setAnswerList] = useQState<answerListItem[]>(
-    `answerList-${yearId}`,
-    []
-  )
+  const answerList = useRecoilValue(answerListState)
 
   if (isLoading) return <Loading />
 
