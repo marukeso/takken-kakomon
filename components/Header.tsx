@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect, useState, VFC } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
+import Image from 'next/image'
 
 export const Header: VFC = () => {
   const { user } = useUser()
@@ -17,7 +18,10 @@ export const Header: VFC = () => {
     <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-7">
       <h1>
         <Link href="/">
-          <a className="text-kyokasho block text-2xl font-bold">宅建過去問</a>
+          <a className="text-kyokasho flex items-center text-2xl font-bold">
+            <Image src="/logo.png" width={38} height={38} alt="宅建過去問" />
+            <span className="ml-2">宅建過去問</span>
+          </a>
         </Link>
       </h1>
 
