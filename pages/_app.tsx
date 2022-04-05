@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { useEffect, useState } from 'react'
 import adobeLoader from '../utils/adobeLoader'
 import { UserProvider } from '@auth0/nextjs-auth0'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -32,7 +33,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider defaultTheme="light">
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <RecoilRoot>
+              <Component {...pageProps} />
+            </RecoilRoot>
           </Hydrate>
           <ReactQueryDevtools />
         </QueryClientProvider>

@@ -7,8 +7,8 @@ import {
 import { TitleListWithCheckbox } from './TitleListWithCheckbox'
 import Link from 'next/link'
 import { useQueryTitlesByYearAndSubcategory } from 'hooks/useQueryTitlesByYearAndSubcategory'
-import { answerListItem } from 'types/types'
-import { useQState } from 'hooks/useQState'
+import { useRecoilState } from 'recoil'
+import { answerListState } from 'atoms/answerLIstAtom'
 
 interface Props {
   yearId: string
@@ -26,26 +26,13 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
   }
 
   // right bottom answer list
-  const [answerList, setAnswerList] = useQState<answerListItem[]>(
-    `answerList-${yearId}`,
-    []
-  )
-  const correctLength = answerList.filter((item) => item.isCorrect).length
+  const [answerList, setAnswerList] = useRecoilState(answerListState)
+  const correctLength = answerList.filter(
+    (item) => item.yearId === yearId && item.isCorrect
+  ).length
 
   return (
     <div className="relative w-80 overflow-scroll border-r border-base-300 bg-base-100 px-4 py-24 text-sm">
-      {/* <Link href="/">
-          <a className="flex cursor-pointer items-center space-x-2 rounded-md py-3 px-4 transition hover:bg-base-300">
-            <HomeIcon className="w-6" />
-            <span>ホーム</span>
-          </a>
-        </Link>
-        <a className="flex cursor-pointer items-center space-x-2 rounded-md py-3 px-4 transition hover:bg-base-300">
-          <HeartIcon className="w-6" />
-          <span>お気に入り</span>
-        </a>
-        <hr className="my-4 border-t border-base-300" /> */}
-
       <TitleListWithCheckbox yearId={yearId} questionId={questionId} />
 
       {/* 終了 */}
@@ -88,12 +75,15 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
 
         <div className="flex w-44 items-center justify-end">
           <div>
-            {answerList.length}/50 - {correctLength}問正解
+            {answerList.filter((item) => item.yearId === yearId).length}/50 -{' '}
+            {correctLength}問正解
           </div>
           <div
             className="btn btn-outline btn-xs ml-2"
             onClick={() => {
-              setAnswerList([])
+              setAnswerList([
+                ...answerList.filter((item) => item.yearId !== yearId),
+              ])
             }}
           >
             クリア
