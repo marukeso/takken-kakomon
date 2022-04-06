@@ -50,8 +50,8 @@ export const Question: VFC<Props> = ({
       setCorrectColor('bg-success bg-opacity-20 text-success')
       confetti({
         particleCount: 100,
-        spread: 130,
-        origin: { y: 0.4 },
+        spread: 80,
+        origin: { y: 0.5 },
       })
     }
 
