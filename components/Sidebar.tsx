@@ -6,20 +6,20 @@ import {
 } from '@heroicons/react/outline'
 import { TitleListWithCheckbox } from './TitleListWithCheckbox'
 import Link from 'next/link'
-import { useQueryTitlesByYearAndSubcategory } from 'hooks/useQueryTitlesByYearAndSubcategory'
 import { useRecoilState } from 'recoil'
 import { answerListState } from 'atoms/answerLIstAtom'
+import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../graphql/generated/graphql'
 
 interface Props {
   yearId: string
   questionId: string
+  data: GetQuestionAndTitlesByYearAndSubcategoryQuery
 }
 
-export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
+export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
   //prev next button
   let prev, next
-  const { isSuccess, data } = useQueryTitlesByYearAndSubcategory(yearId)
-  if (isSuccess && data) {
+  if (data) {
     const index = data.titles.findIndex((item) => item.id === questionId)
     prev = data.titles[index - 1] ? data.titles[index - 1] : null
     next = data.titles[index + 1] ? data.titles[index + 1] : null
@@ -33,7 +33,11 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId }) => {
 
   return (
     <div className="relative w-80 overflow-scroll border-r border-base-300 bg-base-100 px-4 py-24 text-sm">
-      <TitleListWithCheckbox yearId={yearId} questionId={questionId} />
+      <TitleListWithCheckbox
+        yearId={yearId}
+        questionId={questionId}
+        data={data}
+      />
 
       {/* 終了 */}
       <div className="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-base-300 bg-base-100 py-2 px-8">

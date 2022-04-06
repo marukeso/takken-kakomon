@@ -1,22 +1,22 @@
 import { VFC } from 'react'
-import { Loading } from './Loading'
 import Link from 'next/link'
-import { useQueryTitlesByYearAndSubcategory } from '../hooks/useQueryTitlesByYearAndSubcategory'
 import { CheckIcon, XIcon } from '@heroicons/react/outline'
 import { answerListState } from 'atoms/answerLIstAtom'
 import { useRecoilValue } from 'recoil'
+import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../graphql/generated/graphql'
 
 interface Props {
   yearId: string
   questionId: string
+  data: GetQuestionAndTitlesByYearAndSubcategoryQuery
 }
 
-export const TitleListWithCheckbox: VFC<Props> = ({ yearId, questionId }) => {
-  const { isLoading, data } = useQueryTitlesByYearAndSubcategory(yearId)
-
+export const TitleListWithCheckbox: VFC<Props> = ({
+  yearId,
+  questionId,
+  data,
+}) => {
   const answerList = useRecoilValue(answerListState)
-
-  if (isLoading) return <Loading />
 
   return (
     <>
