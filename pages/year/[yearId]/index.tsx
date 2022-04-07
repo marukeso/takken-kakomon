@@ -13,9 +13,10 @@ import {
 interface Props {
   data: GetYearTitlesWithHeadingQuery | GetYearTitlesWithHeadingAndAnswersQuery
   yearId: string
+  accessToken?: string
 }
 
-const QuestionList: NextPage<Props> = ({ yearId, data }) => {
+const QuestionList: NextPage<Props> = (props) => {
   return (
     <div>
       <Head>
@@ -24,7 +25,7 @@ const QuestionList: NextPage<Props> = ({ yearId, data }) => {
       </Head>
 
       <DefaultLayout>
-        <YearTitles yearId={yearId} data={data} />
+        <YearTitles {...props} />
       </DefaultLayout>
     </div>
   )
@@ -63,6 +64,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       ...query,
       data,
+      accessToken: session?.accessToken || null,
     },
   }
 }

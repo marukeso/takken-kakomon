@@ -85,6 +85,7 @@ export type Answers = {
   title: Titles;
   title_id: Scalars['String'];
   user_id: Scalars['String'];
+  year_id: Scalars['String'];
 };
 
 /** order by aggregate values of table "answers" */
@@ -118,6 +119,7 @@ export type Answers_Bool_Exp = {
   title?: InputMaybe<Titles_Bool_Exp>;
   title_id?: InputMaybe<String_Comparison_Exp>;
   user_id?: InputMaybe<String_Comparison_Exp>;
+  year_id?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** input type for inserting data into table "answers" */
@@ -125,6 +127,7 @@ export type Answers_Insert_Input = {
   category_id?: InputMaybe<Scalars['String']>;
   is_correct?: InputMaybe<Scalars['Boolean']>;
   title_id?: InputMaybe<Scalars['String']>;
+  year_id?: InputMaybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "answers" */
@@ -133,6 +136,7 @@ export type Answers_Max_Order_By = {
   id?: InputMaybe<Order_By>;
   title_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
+  year_id?: InputMaybe<Order_By>;
 };
 
 /** order by min() on columns of table "answers" */
@@ -141,6 +145,7 @@ export type Answers_Min_Order_By = {
   id?: InputMaybe<Order_By>;
   title_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
+  year_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "answers" */
@@ -160,6 +165,7 @@ export type Answers_Order_By = {
   title?: InputMaybe<Titles_Order_By>;
   title_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
+  year_id?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "answers" */
@@ -173,7 +179,9 @@ export enum Answers_Select_Column {
   /** column name */
   TitleId = 'title_id',
   /** column name */
-  UserId = 'user_id'
+  UserId = 'user_id',
+  /** column name */
+  YearId = 'year_id'
 }
 
 /** order by stddev() on columns of table "answers" */
@@ -335,6 +343,10 @@ export enum Choices_Select_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "answers" */
+  delete_answers?: Maybe<Answers_Mutation_Response>;
+  /** delete single row from the table: "answers" */
+  delete_answers_by_pk?: Maybe<Answers>;
   /** delete data from the table: "todos" */
   delete_todos?: Maybe<Todos_Mutation_Response>;
   /** delete single row from the table: "todos" */
@@ -355,6 +367,18 @@ export type Mutation_Root = {
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_AnswersArgs = {
+  where: Answers_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Answers_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1414,6 +1438,13 @@ export enum Years_Select_Column {
   Id = 'id'
 }
 
+export type DeleteAnswersByYearMutationVariables = Exact<{
+  yearId: Scalars['String'];
+}>;
+
+
+export type DeleteAnswersByYearMutation = { __typename?: 'mutation_root', delete_answers?: { __typename?: 'answers_mutation_response', returning: Array<{ __typename?: 'answers', id: number, title_id: string, year_id: string }> } | null };
+
 export type GetQuestionQueryVariables = Exact<{
   questionId: Scalars['String'];
 }>;
@@ -1461,12 +1492,24 @@ export type InsertAnswersOneMutationVariables = Exact<{
   categoryId: Scalars['String'];
   isCorrect: Scalars['Boolean'];
   titleId: Scalars['String'];
+  yearId: Scalars['String'];
 }>;
 
 
-export type InsertAnswersOneMutation = { __typename?: 'mutation_root', insert_answers_one?: { __typename?: 'answers', category_id: string, is_correct: boolean, title_id: string } | null };
+export type InsertAnswersOneMutation = { __typename?: 'mutation_root', insert_answers_one?: { __typename?: 'answers', category_id: string, is_correct: boolean, title_id: string, year_id: string } | null };
 
 
+export const DeleteAnswersByYearDocument = gql`
+    mutation DeleteAnswersByYear($yearId: String!) {
+  delete_answers(where: {year_id: {_eq: $yearId}}) {
+    returning {
+      id
+      title_id
+      year_id
+    }
+  }
+}
+    `;
 export const GetQuestionDocument = gql`
     query GetQuestion($questionId: String!) {
   questions_by_pk(id: $questionId) {
@@ -1573,13 +1616,14 @@ export const GetYearTitlesWithHeadingAndAnswersDocument = gql`
 }
     `;
 export const InsertAnswersOneDocument = gql`
-    mutation InsertAnswersOne($categoryId: String!, $isCorrect: Boolean!, $titleId: String!) {
+    mutation InsertAnswersOne($categoryId: String!, $isCorrect: Boolean!, $titleId: String!, $yearId: String!) {
   insert_answers_one(
-    object: {category_id: $categoryId, is_correct: $isCorrect, title_id: $titleId}
+    object: {category_id: $categoryId, is_correct: $isCorrect, title_id: $titleId, year_id: $yearId}
   ) {
     category_id
     is_correct
     title_id
+    year_id
   }
 }
     `;
@@ -1591,6 +1635,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    DeleteAnswersByYear(variables: DeleteAnswersByYearMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteAnswersByYearMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteAnswersByYearMutation>(DeleteAnswersByYearDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteAnswersByYear', 'mutation');
+    },
     GetQuestion(variables: GetQuestionQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetQuestionQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetQuestionQuery>(GetQuestionDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetQuestion', 'query');
     },

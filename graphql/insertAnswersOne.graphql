@@ -2,16 +2,19 @@ mutation InsertAnswersOne(
   $categoryId: String!
   $isCorrect: Boolean!
   $titleId: String!
+  $yearId: String!
 ) {
   insert_answers_one(
     object: {
       category_id: $categoryId
       is_correct: $isCorrect
       title_id: $titleId
+      year_id: $yearId
     }
   ) {
     category_id
     is_correct
     title_id
+    year_id
   }
 }
