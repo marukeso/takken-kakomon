@@ -1,0 +1,9 @@
+mutation DeleteAnswersByYear($yearId: String!) {
+  delete_answers(where: { year_id: { _eq: $yearId } }) {
+    returning {
+      id
+      title_id
+      year_id
+    }
+  }
+}

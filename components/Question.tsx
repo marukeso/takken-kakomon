@@ -70,6 +70,7 @@ export const Question: VFC<Props> = ({
         categoryId: question?.title.subcategory.category.id as string,
         isCorrect: isCorrect ? true : false,
         titleId: question?.id as string,
+        yearId: yearId,
       })
     }
   }

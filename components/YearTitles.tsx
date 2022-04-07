@@ -1,4 +1,4 @@
-import { VFC } from 'react'
+import { useState, VFC } from 'react'
 import Link from 'next/link'
 import {
   GetYearTitlesWithHeadingAndAnswersQuery,
@@ -7,13 +7,17 @@ import {
 import { badgeStatus, sumCorrect } from 'utils/badgeStatus'
 import { useUser } from '@auth0/nextjs-auth0'
 import { radialProgressStatus } from 'utils/radialProgressStatus'
+import { createHasuraClient } from 'utils/hasuraClient'
+import { CheckIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
 
 interface Props {
   yearId: string
   data: GetYearTitlesWithHeadingQuery | GetYearTitlesWithHeadingAndAnswersQuery
+  accessToken?: string
 }
 
-export const YearTitles: VFC<Props> = ({ yearId, data }) => {
+export const YearTitles: VFC<Props> = ({ yearId, data, accessToken }) => {
   const { user } = useUser()
 
   const percentage = (a: number, b: number): number =>
@@ -63,12 +67,49 @@ export const YearTitles: VFC<Props> = ({ yearId, data }) => {
     }
   })
 
+  // 履歴を削除する
+  const [isRemoving, setIsRemoving] = useState<boolean>(false)
+  const [isRemoved, setIsRemoved] = useState<boolean>(false)
+  const router = useRouter()
+
+  const handleRemoveAnswers = async () => {
+    const hasuraClient = createHasuraClient(accessToken as string)
+    setIsRemoving(true)
+    try {
+      const res = await hasuraClient.DeleteAnswersByYear({
+        yearId,
+      })
+      setIsRemoved(true)
+      // handleCloseModal()
+      router.reload()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleCloseModal = () => {
+    const input = document.getElementById(
+      'remove-history-modal'
+    ) as HTMLInputElement
+    input.checked = false
+  }
+
   return (
     <div className="m-auto my-24 flex w-[900px] justify-between">
       <div className="w-[520px]">
-        <h1 className="text-kyokasho mb-6 px-2 text-2xl font-bold">
-          {data?.years_by_pk?.content}試験
-        </h1>
+        <div className="mb-6 flex items-center justify-between px-2">
+          <h1 className="text-kyokasho text-2xl font-bold">
+            {data?.years_by_pk?.content}試験
+          </h1>
+          {user && total > 0 && (
+            <label
+              htmlFor="remove-history-modal"
+              className="btn btn-outline btn-xs"
+            >
+              履歴を削除
+            </label>
+          )}
+        </div>
         <ul>
           {data.titles.map((title) => (
             <li key={title.id}>
@@ -162,6 +203,47 @@ export const YearTitles: VFC<Props> = ({ yearId, data }) => {
         .text-error {
         }
       `}</style>
+
+      {/* 履歴を削除モーダル */}
+      {user && (
+        <>
+          <input
+            type="checkbox"
+            id="remove-history-modal"
+            className="modal-toggle"
+          />
+          <label
+            htmlFor="remove-history-modal"
+            className="modal cursor-pointer"
+          >
+            <label className="modal-box relative text-center" htmlFor="">
+              <p className="mb-5">
+                {data?.years_by_pk?.content}
+                試験の履歴をすべて削除しますがよろしいですか？
+              </p>
+
+              <div className="flex justify-center">
+                {isRemoved ? (
+                  <button className="btn btn-success mr-5">
+                    <CheckIcon className="mr-1 w-6" />
+                    削除しました
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleRemoveAnswers}
+                    className={`btn btn-error mr-5 ${isRemoving && 'loading'}`}
+                  >
+                    削除する
+                  </button>
+                )}
+                <button onClick={handleCloseModal} className="btn btn-outline">
+                  キャンセル
+                </button>
+              </div>
+            </label>
+          </label>
+        </>
+      )}
     </div>
   )
 }
