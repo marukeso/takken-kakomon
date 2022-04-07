@@ -5,8 +5,8 @@ import { VFC } from 'react'
 export const Footer: VFC = () => {
   return (
     <footer className="bg-base-200 px-8 pt-10 pb-4">
-      <div className="footer mx-auto w-[900px]">
-        <div>
+      <div className="footer mx-auto max-w-[900px]">
+        <div className="w-full place-items-center text-center md:place-items-start md:text-left">
           <Image src="/logo.png" width={80} height={80} alt="宅建過去問" />
           <p>
             サインアップして
