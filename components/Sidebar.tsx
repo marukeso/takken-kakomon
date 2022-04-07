@@ -39,8 +39,8 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
         data={data}
       />
 
-      {/* 終了 */}
-      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-base-300 bg-base-100 py-2 px-8">
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-base-300 bg-base-100 py-2 px-5">
+        {/* 終了 */}
         <div className="w-44">
           <Link href={`/year/${yearId}`}>
             <a className="flex w-max cursor-pointer items-center space-x-2 font-bold">

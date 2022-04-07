@@ -1,10 +1,19 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { VFC } from 'react'
 
 export const Footer: VFC = () => {
   return (
     <footer className="bg-base-200 px-8 pt-10 pb-4">
-      <div className="footer w-1/2 text-base-content">
+      <div className="footer mx-auto w-[900px]">
+        <div>
+          <Image src="/logo.png" width={80} height={80} alt="宅建過去問" />
+          <p>
+            サインアップして
+            <br />
+            履歴機能を使ってみよう！
+          </p>
+        </div>
         <div>
           <span className="footer-title">年度別試験</span>
           <Link href="/year/212">
@@ -21,12 +30,12 @@ export const Footer: VFC = () => {
           </Link>
         </div>
         {/* <div>
-            <span className="footer-title">カテゴリー別試験</span>
-            <a className="hover:opacity-60">権利関係</a>
-            <a className="hover:opacity-60">宅建業法</a>
-            <a className="hover:opacity-60">法令制限</a>
-            <a className="hover:opacity-60">税その他</a>
-          </div> */}
+          <span className="footer-title">カテゴリー別試験</span>
+          <a className="hover:opacity-60">権利関係</a>
+          <a className="hover:opacity-60">宅建業法</a>
+          <a className="hover:opacity-60">法令制限</a>
+          <a className="hover:opacity-60">税その他</a>
+        </div> */}
         <div>
           <span className="footer-title opacity-0">コンテンツ</span>
           <Link href="/terms">

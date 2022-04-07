@@ -15,17 +15,17 @@ export const Header: VFC = () => {
   if (!mounted) return null
 
   return (
-    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-7">
+    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-5">
       <h1>
         <Link href="/">
           <a className="text-kyokasho flex items-center text-2xl font-bold">
             <Image src="/logo.png" width={38} height={38} alt="宅建過去問" />
-            <span className="ml-2">宅建過去問</span>
+            <span className="ml-1">宅建過去問</span>
           </a>
         </Link>
       </h1>
 
-      <div className="ml-auto mr-3 cursor-pointer" title="背景色変更">
+      <div className="ml-auto mr-2 cursor-pointer" title="背景色変更">
         {theme === 'light' ? (
           <MoonIcon onClick={() => setTheme('dark')} className="w-5" />
         ) : (

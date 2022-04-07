@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
             </RecoilRoot>
           </Hydrate>
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </QueryClientProvider>
       </ThemeProvider>
     </UserProvider>
