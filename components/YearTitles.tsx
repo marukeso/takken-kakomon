@@ -224,19 +224,26 @@ export const YearTitles: VFC<Props> = ({ yearId, data, accessToken }) => {
 
               <div className="flex justify-center">
                 {isRemoved ? (
-                  <button className="btn btn-success mr-5">
+                  <button className="btn btn-success pointer-events-none mr-5">
                     <CheckIcon className="mr-1 w-6" />
                     削除しました
                   </button>
                 ) : (
                   <button
                     onClick={handleRemoveAnswers}
-                    className={`btn btn-error mr-5 ${isRemoving && 'loading'}`}
+                    className={`btn btn-error mr-5 ${
+                      isRemoving && 'loading pointer-events-none'
+                    }`}
                   >
                     削除する
                   </button>
                 )}
-                <button onClick={handleCloseModal} className="btn btn-outline">
+                <button
+                  onClick={handleCloseModal}
+                  className={`btn btn-outline ${
+                    isRemoving && 'pointer-events-none'
+                  }`}
+                >
                   キャンセル
                 </button>
               </div>
