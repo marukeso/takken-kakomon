@@ -15,7 +15,7 @@ export const Header: VFC = () => {
   if (!mounted) return null
 
   return (
-    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-5">
+    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-2 md:px-5 ">
       <h1>
         <Link href="/">
           <a className="text-kyokasho flex items-center text-2xl font-bold">

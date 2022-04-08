@@ -39,11 +39,11 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
         data={data}
       />
 
-      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-base-300 bg-base-100 py-2 px-5">
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-center border-t border-base-300 bg-base-100 py-2 px-5 md:justify-between">
         {/* 終了 */}
-        <div className="w-44">
+        <div className="hidden w-44 md:block">
           <Link href={`/year/${yearId}`}>
-            <a className="flex w-max cursor-pointer items-center space-x-2 font-bold">
+            <a className="btn btn-ghost btn-sm space-x-2">
               <ArrowNarrowLeftIcon className="w-6" />
               <span>終了する</span>
             </a>
@@ -77,7 +77,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
           )}
         </div>
 
-        <div className="flex w-44 items-center justify-end">
+        <div className="hidden w-44 items-center justify-end md:flex">
           <div>
             {answerList.filter((item) => item.yearId === yearId).length}/50 -{' '}
             {correctLength}問正解
