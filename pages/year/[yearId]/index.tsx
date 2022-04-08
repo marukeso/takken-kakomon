@@ -20,7 +20,7 @@ const QuestionList: NextPage<Props> = (props) => {
   return (
     <div>
       <Head>
-        <title>試験一覧</title>
+        <title>{props.data?.years_by_pk?.content}試験一覧 | 宅建過去問</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

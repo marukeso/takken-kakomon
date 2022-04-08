@@ -18,7 +18,7 @@ const QuestionPage: NextPage<Props> = (props) => {
   return (
     <div className="overflow-hidden">
       <Head>
-        <title>宅建過去問</title>
+        <title>{props.data.questions_by_pk?.title.content} | 宅建過去問</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
