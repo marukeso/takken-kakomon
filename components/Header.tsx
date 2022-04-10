@@ -34,7 +34,7 @@ export const Header: VFC = () => {
       </div>
 
       {user ? (
-        <div className="dropdown-end dropdown">
+        <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
             className="flex cursor-pointer items-center space-x-2"
@@ -58,7 +58,7 @@ export const Header: VFC = () => {
         </div>
       ) : (
         <Link href="/api/auth/login">
-          <a className="text-primary">ログイン</a>
+          <a className="text-info">ログイン</a>
         </Link>
       )}
     </header>

@@ -7,7 +7,7 @@ export const Footer: VFC = () => {
     <footer className="bg-base-200 px-8 pt-10 pb-4">
       <div className="footer mx-auto max-w-[900px]">
         <div className="w-full place-items-center text-center md:place-items-start md:text-left">
-          <Image src="/logo.png" width={80} height={80} alt="宅建過去問" />
+          <Image src="/logo.png" width={70} height={70} alt="宅建過去問" />
           <p>
             サインアップして
             <br />
@@ -17,16 +17,16 @@ export const Footer: VFC = () => {
         <div>
           <span className="footer-title">年度別試験</span>
           <Link href="/year/212">
-            <a className="hover:opacity-60">令和3年（2021年）12月</a>
+            <a className="hover:opacity-60">令和3年12月試験</a>
           </Link>
           <Link href="/year/211">
-            <a className="hover:opacity-60">令和3年（2021年）10月</a>
+            <a className="hover:opacity-60">令和3年10月試験</a>
           </Link>
           <Link href="/year/202">
-            <a className="hover:opacity-60">令和2年（2020年）12月</a>
+            <a className="hover:opacity-60">令和2年12月試験</a>
           </Link>
           <Link href="/year/201">
-            <a className="hover:opacity-60">令和2年（2020年）10月</a>
+            <a className="hover:opacity-60">令和2年10月試験</a>
           </Link>
         </div>
         {/* <div>
