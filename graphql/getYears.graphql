@@ -1,0 +1,6 @@
+query GetYears {
+  years(order_by: { id: desc }) {
+    content
+    id
+  }
+}
