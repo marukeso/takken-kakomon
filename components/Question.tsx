@@ -93,7 +93,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
         </div>
       </div>
 
-      <div className="question-text mb-8 text-xl font-medium">
+      <div className="question-text mb-8 text-lg font-medium md:text-xl">
         <div
           dangerouslySetInnerHTML={{
             __html: question ? question.content : '',

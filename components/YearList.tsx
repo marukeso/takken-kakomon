@@ -12,9 +12,9 @@ const YearList: VFC = () => {
   if (isLoading) return <Loading />
 
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-2 lg:grid-cols-4 lg:px-0">
       {data?.years.map((year) => (
-        <div className="card space-y-4 font-medium">
+        <div className="card space-y-4 pt-5 pb-7 font-medium">
           <p className="text-center text-lg">{year.content}</p>
           <Link href={`/year/${year.id}`}>
             <a className="btn btn-accent w-full border-none bg-opacity-60">

@@ -95,7 +95,7 @@ export const YearTitles: VFC<Props> = (props) => {
       </div>
 
       {/* スマホ用 */}
-      <div className="fixed bottom-0 left-0 z-10 w-full bg-base-100 bg-opacity-50 p-4">
+      <div className="fixed bottom-0 left-0 z-10 w-full bg-base-100 bg-opacity-50 p-4 lg:hidden">
         <Link href={`/year/${yearId}/${yearId}01`}>
           <a className="btn w-full">試験を開始する</a>
         </Link>

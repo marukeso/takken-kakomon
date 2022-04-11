@@ -3,9 +3,9 @@ import { VFC } from 'react'
 
 export const Footer: VFC = () => {
   return (
-    <footer className="bg-base-100 py-6 px-4 lg:px-0">
+    <footer className="bg-base-100 py-10 px-4 lg:py-6 lg:px-0">
       <div className=" mx-auto flex max-w-[1000px] flex-col items-start text-sm lg:flex-row lg:items-center">
-        <div className="flex flex-col lg:flex-row lg:space-x-6">
+        <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6">
           <Link href="/terms">
             <a className="hover:opacity-60">利用規約</a>
           </Link>
