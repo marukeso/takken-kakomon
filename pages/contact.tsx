@@ -10,7 +10,7 @@ const Contact: NextPage = () => {
       </Head>
 
       <DefaultLayout>
-        <div className="mx-auto min-h-[700px] max-w-[800px] py-24 px-4 md:py-32 lg:px-0">
+        <div className="min-h-[700px]">
           <div className="prose prose-sm flex max-w-none flex-col space-y-2">
             <div>
               <h1 className="mb-10 text-2xl">お問い合わせ</h1>

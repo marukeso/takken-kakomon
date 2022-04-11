@@ -32,16 +32,35 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
   ).length
 
   return (
-    <div className="relative w-80 overflow-scroll border-r border-base-300 bg-base-100 px-4 py-24 text-sm">
-      <TitleListWithCheckbox
-        yearId={yearId}
-        questionId={questionId}
-        data={data}
-      />
+    <div className="card w-[270px] px-3 pb-3 text-sm">
+      <div className="flex h-full flex-col">
+        {/* 正解数 */}
+        <div className="flex w-full items-center justify-between px-4">
+          <div>
+            {answerList.filter((item) => item.yearId === yearId).length}/50 -{' '}
+            {correctLength}問正解
+          </div>
+          <div
+            className="btn btn-outline btn-xs ml-2"
+            onClick={() => {
+              setAnswerList([
+                ...answerList.filter((item) => item.yearId !== yearId),
+              ])
+            }}
+          >
+            クリア
+          </div>
+        </div>
 
-      <div className="fixed bottom-0 left-0 flex w-full items-center justify-center border-t border-base-300 bg-base-100 py-2 px-5 md:justify-between">
+        {/* 問題 */}
+        <TitleListWithCheckbox
+          yearId={yearId}
+          questionId={questionId}
+          data={data}
+        />
+
         {/* 終了 */}
-        <div className="hidden w-44 md:block">
+        <div>
           <Link href={`/year/${yearId}`}>
             <a className="btn btn-ghost btn-sm space-x-2">
               <ArrowNarrowLeftIcon className="w-6" />
@@ -49,7 +68,9 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
             </a>
           </Link>
         </div>
+      </div>
 
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-center bg-base-100 py-2">
         {/* prev next button */}
         <div className="flex w-[240px] justify-between">
           {prev && (
@@ -75,23 +96,6 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
               </a>
             </Link>
           )}
-        </div>
-
-        <div className="hidden w-44 items-center justify-end md:flex">
-          <div>
-            {answerList.filter((item) => item.yearId === yearId).length}/50 -{' '}
-            {correctLength}問正解
-          </div>
-          <div
-            className="btn btn-outline btn-xs ml-2"
-            onClick={() => {
-              setAnswerList([
-                ...answerList.filter((item) => item.yearId !== yearId),
-              ])
-            }}
-          >
-            クリア
-          </div>
         </div>
       </div>
     </div>

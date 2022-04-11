@@ -23,9 +23,11 @@ const QuestionPage: NextPage<Props> = (props) => {
       </Head>
 
       <Header />
-      <main className="flex h-screen w-full 2xl:justify-center">
-        <Sidebar {...props} />
-        <Question {...props} />
+      <main className="h-screen w-full bg-base-200 py-20">
+        <div className="mx-auto flex h-full w-[1000px] justify-between">
+          <Sidebar {...props} />
+          <Question {...props} />
+        </div>
       </main>
     </div>
   )
