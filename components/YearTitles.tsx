@@ -1,4 +1,4 @@
-import { useState, VFC } from 'react'
+import { memo, useState, VFC } from 'react'
 import Link from 'next/link'
 import {
   GetYearTitlesWithHeadingAndAnswersQuery,
@@ -10,7 +10,7 @@ import { radialProgressStatus } from 'utils/radialProgressStatus'
 import { createHasuraClient } from 'utils/hasuraClient'
 import { CheckIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import { YearList } from './YearList'
+import { YearListMemo } from './YearList'
 
 interface Props {
   yearId: string
@@ -18,7 +18,7 @@ interface Props {
   accessToken?: string
 }
 
-export const YearTitles: VFC<Props> = ({ yearId, data, accessToken }) => {
+const YearTitles: VFC<Props> = ({ yearId, data, accessToken }) => {
   const { user } = useUser()
 
   const percentage = (a: number, b: number): number =>
@@ -255,7 +255,9 @@ export const YearTitles: VFC<Props> = ({ yearId, data, accessToken }) => {
         )}
       </div>
 
-      <YearList />
+      <YearListMemo />
     </>
   )
 }
+
+export const YearTitlesMemo = memo(YearTitles)

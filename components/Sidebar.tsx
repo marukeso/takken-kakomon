@@ -1,10 +1,10 @@
-import { VFC } from 'react'
+import { memo, VFC } from 'react'
 import {
   ArrowNarrowLeftIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
 } from '@heroicons/react/outline'
-import { TitleListWithCheckbox } from './TitleListWithCheckbox'
+import { TitleList } from './TitleList'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import { answerListState } from 'atoms/answerLIstAtom'
@@ -16,7 +16,7 @@ interface Props {
   data: GetQuestionAndTitlesByYearAndSubcategoryQuery
 }
 
-export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
+const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
   //prev next button
   let prev, next
   if (data) {
@@ -53,11 +53,7 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
         </div>
 
         {/* 問題 */}
-        <TitleListWithCheckbox
-          yearId={yearId}
-          questionId={questionId}
-          data={data}
-        />
+        <TitleList yearId={yearId} questionId={questionId} data={data} />
 
         {/* 終了 */}
         <div>
@@ -101,3 +97,5 @@ export const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
     </div>
   )
 }
+
+export const SidebarMemo = memo(Sidebar)

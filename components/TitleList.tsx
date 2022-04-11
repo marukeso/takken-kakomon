@@ -11,11 +11,7 @@ interface Props {
   data: GetQuestionAndTitlesByYearAndSubcategoryQuery
 }
 
-export const TitleListWithCheckbox: VFC<Props> = ({
-  yearId,
-  questionId,
-  data,
-}) => {
+export const TitleList: VFC<Props> = ({ yearId, questionId, data }) => {
   const answerList = useRecoilValue(answerListState)
 
   return (

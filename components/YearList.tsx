@@ -1,10 +1,10 @@
-import { VFC } from 'react'
+import { memo, VFC } from 'react'
 import Link from 'next/link'
 import { createHasuraClient } from '../utils/hasuraClient'
 import { useQuery } from 'react-query'
 import { Loading } from './Loading'
 
-export const YearList: VFC = () => {
+const YearList: VFC = () => {
   const hasuraClient = createHasuraClient(null)
 
   const { data, isLoading } = useQuery('years', () => hasuraClient.GetYears())
@@ -31,3 +31,5 @@ export const YearList: VFC = () => {
     </div>
   )
 }
+
+export const YearListMemo = memo(YearList)

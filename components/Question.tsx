@@ -1,4 +1,4 @@
-import { VFC, useState, useEffect } from 'react'
+import { VFC, useState, useEffect, memo } from 'react'
 import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
@@ -13,12 +13,7 @@ interface Props {
   yearId: string
 }
 
-export const Question: VFC<Props> = ({
-  data,
-  accessToken,
-  questionId,
-  yearId,
-}) => {
+const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
   const { questions_by_pk: question, choices } = data
 
   // answer animation
@@ -80,7 +75,7 @@ export const Question: VFC<Props> = ({
     setCorrectColor('')
     setWrongColor('')
     setButtonIndex(null)
-  }, [question])
+  }, [questionId])
 
   return (
     <div className="card w-[700px] overflow-scroll">
@@ -143,3 +138,5 @@ export const Question: VFC<Props> = ({
     </div>
   )
 }
+
+export const QuestionMemo = memo(Question)

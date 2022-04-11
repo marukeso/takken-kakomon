@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { DefaultLayout } from '../../../components/DefaultLayout'
 import { GetServerSideProps } from 'next'
 import { createHasuraClient } from 'utils/hasuraClient'
-import { YearTitles } from '../../../components/YearTitles'
+import { YearTitlesMemo } from '../../../components/YearTitles'
 import { getSession } from '@auth0/nextjs-auth0'
 import {
   GetYearTitlesWithHeadingAndAnswersQuery,
@@ -25,7 +25,7 @@ const QuestionList: NextPage<Props> = (props) => {
       </Head>
 
       <DefaultLayout>
-        <YearTitles {...props} />
+        <YearTitlesMemo {...props} />
       </DefaultLayout>
     </div>
   )

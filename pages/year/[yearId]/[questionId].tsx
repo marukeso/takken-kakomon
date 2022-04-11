@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import { Sidebar } from '../../../components/Sidebar'
+import { SidebarMemo } from '../../../components/Sidebar'
 import { GetServerSideProps, NextPage } from 'next'
-import { Question } from '../../../components/Question'
+import { QuestionMemo } from '../../../components/Question'
 import { Header } from '../../../components/Header'
 import { createHasuraClient } from 'utils/hasuraClient'
 import { getSession } from '@auth0/nextjs-auth0'
@@ -25,8 +25,8 @@ const QuestionPage: NextPage<Props> = (props) => {
       <Header />
       <main className="h-screen w-full bg-base-200 py-20">
         <div className="mx-auto flex h-full w-[1000px] justify-between">
-          <Sidebar {...props} />
-          <Question {...props} />
+          <SidebarMemo {...props} />
+          <QuestionMemo {...props} />
         </div>
       </main>
     </div>

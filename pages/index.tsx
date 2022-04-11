@@ -2,7 +2,7 @@ import { DefaultLayout } from '@/components/DefaultLayout'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { YearList } from '../components/YearList'
+import { YearListMemo } from '../components/YearList'
 
 const Home: NextPage = () => {
   return (
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <YearList />
+        <YearListMemo />
       </DefaultLayout>
     </div>
   )
