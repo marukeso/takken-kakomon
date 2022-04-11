@@ -1,9 +1,7 @@
 import { DefaultLayout } from '@/components/DefaultLayout'
-import { ChevronRightIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import { YearList } from '../components/YearList'
 
 const Home: NextPage = () => {
@@ -16,21 +14,25 @@ const Home: NextPage = () => {
 
       <DefaultLayout>
         {/* メインビジュアル */}
-        <div className="flex items-center justify-between pt-44 pb-36 pr-16">
-          <div className="grow text-center">
-            <h1 className="mb-3 text-3xl font-medium leading-10">
-              回答履歴を保存できる
-              <br />
-              宅建試験の学習サービス
+        <div className="pb-20 pt-7">
+          <div className="mb-8 text-center">
+            <h1 className="mb-3 text-3xl font-bold leading-10">
+              回答履歴を保存できる宅建試験の学習サービス
             </h1>
             <p>
-              弱点がひとめで分かるから復習がしやすい
-              <br />
-              苦手なところを何度も問いて一回で合格しよう！
+              弱点がひとめで分かる。苦手なところを何度も問いて一回で合格しよう！
             </p>
             <p className="mt-2 text-sm">
-              ※サインアップしなくてもご利用いただけます。
+              ※サインアップしなくても問題集はご利用いただけます。
             </p>
+          </div>
+
+          <div className="mb-10 text-center">
+            <Image src="/people.svg" width={300} height={211} />
+          </div>
+
+          <div className="shadow-image">
+            <Image src="/main_pc.png" width={700} height={380} alt="PC画面" />
           </div>
         </div>
 
