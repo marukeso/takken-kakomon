@@ -9,15 +9,15 @@ const PrivacyPolicy: NextPage = () => {
         <title>プライバシーポリシー | 宅建過去問</title>
       </Head>
 
-      <div className="prose prose-sm flex max-w-none flex-col space-y-8">
+      <div className="prose prose-sm flex max-w-none flex-col space-y-8 px-4 lg:px-0">
         <div>
           <h1 className="mb-10 text-2xl">プライバシーポリシー</h1>
-          <p className="w-[800px]">
+          <p className="max-w-[800px]">
             宅建過去問運営事務局（以下、「当事務局」といいます。）は、当事務局が提供するサービス（以下「本サービス」といいます。）におけるユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。
           </p>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>1. 収集する利用者情報</h2>
           <div className="card">
             <p>
@@ -64,7 +64,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>2. 利用目的</h2>
           <div className="card">
             <p>
@@ -86,7 +86,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>3. 外部送信について</h2>
           <div className="card">
             <p>
@@ -108,7 +108,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>4. 第三者提供</h2>
           <div className="card">
             <p>
@@ -135,7 +135,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>5. 個人情報の開示</h2>
           <div className="card">
             <p>
@@ -144,7 +144,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>6. 個人情報の訂正及び利用停止</h2>
           <div className="card">
             <ol>
@@ -169,7 +169,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>7. お問い合わせ窓口</h2>
           <div className="card">
             <p>
@@ -185,7 +185,7 @@ const PrivacyPolicy: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>8. 変更手続</h2>
           <div className="card">
             <p>
