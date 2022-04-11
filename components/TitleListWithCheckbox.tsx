@@ -19,7 +19,7 @@ export const TitleListWithCheckbox: VFC<Props> = ({
   const answerList = useRecoilValue(answerListState)
 
   return (
-    <>
+    <div className="my-5 h-full overflow-scroll">
       {data?.titles.map((title) => (
         <Link key={title.id} href={`/year/${yearId}/${title.id}`}>
           <a className="group flex items-center rounded-md py-3 px-4 hover:bg-base-200">
@@ -53,6 +53,6 @@ export const TitleListWithCheckbox: VFC<Props> = ({
           </a>
         </Link>
       ))}
-    </>
+    </div>
   )
 }

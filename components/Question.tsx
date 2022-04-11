@@ -83,64 +83,62 @@ export const Question: VFC<Props> = ({
   }, [question])
 
   return (
-    <div className="flex grow justify-center overflow-scroll 2xl:ml-10 2xl:grow-0">
-      <div className="h-max max-w-[800px] py-24 px-5">
-        {/* title and question */}
-        <p className="text-lg font-medium">{question?.title.content}</p>
-        <div className="mt-2 mb-7 flex space-x-1">
-          <div className="badge badge-outline text-xs">
-            {question?.title.year.content}
-          </div>
-          <div className="badge badge-outline text-xs">
-            {question?.title.subcategory.category.content}
-          </div>
-          <div className="badge badge-outline text-xs">
-            {question?.title.subcategory.content}
-          </div>
+    <div className="card w-[700px] overflow-scroll">
+      {/* title and question */}
+      <p className="text-lg font-medium">{question?.title.content}</p>
+      <div className="mt-2 mb-7 flex space-x-1">
+        <div className="badge badge-outline text-xs">
+          {question?.title.year.content}
         </div>
+        <div className="badge badge-outline text-xs">
+          {question?.title.subcategory.category.content}
+        </div>
+        <div className="badge badge-outline text-xs">
+          {question?.title.subcategory.content}
+        </div>
+      </div>
 
-        <div className="question-text mb-8 text-xl font-medium">
+      <div className="question-text mb-8 text-xl font-medium">
+        <div
+          dangerouslySetInnerHTML={{
+            __html: question ? question.content : '',
+          }}
+        ></div>
+      </div>
+
+      {/* choices */}
+      <div className="mb-14 flex flex-col space-y-3">
+        {choices?.map((choice, index) => (
           <div
-            dangerouslySetInnerHTML={{
-              __html: question ? question.content : '',
-            }}
-          ></div>
-        </div>
+            key={choice.id}
+            className={`flex items-center rounded-xl py-4 px-3 ${
+              choice.is_answer ? correctColor : wrongColor
+            }`}
+          >
+            <div className="mr-5 text-2xl font-medium">{index + 1}.</div>
+            <p>{choice.content}</p>
+          </div>
+        ))}
+      </div>
 
-        {/* choices */}
-        <div className="mb-14 flex flex-col space-y-3">
-          {choices?.map((choice, index) => (
-            <div
-              key={choice.id}
-              className={`flex items-center rounded-xl p-5 ${
-                choice.is_answer ? correctColor : wrongColor
-              }`}
-            >
-              <div className="mr-5 text-3xl font-medium">{index + 1}.</div>
-              <p>{choice.content}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* choice button */}
-        <div className="mb-20 flex justify-center space-x-6">
-          {choices?.map((choice, index) => (
-            <button
-              key={choice.id}
-              data-correct={choice.is_answer}
-              onClick={(e) => handleOnClick(e, index)}
-              className={`btn btn-ghost btn-lg text-4xl font-medium ${
-                choice.is_answer ? correctColor : wrongColor
-              } ${isAnswered ? 'pointer-events-none' : ''} ${
-                buttonIndex === index && !choice.is_answer
-                  ? 'bg-error bg-opacity-20 text-error opacity-100'
-                  : ''
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+      {/* choice button */}
+      <div className="mb-10 flex justify-center space-x-6">
+        {choices?.map((choice, index) => (
+          <button
+            key={choice.id}
+            data-correct={choice.is_answer}
+            onClick={(e) => handleOnClick(e, index)}
+            className={`btn btn-ghost btn-lg text-4xl font-medium ${
+              choice.is_answer ? correctColor : wrongColor
+            } ${isAnswered ? 'pointer-events-none' : ''} ${
+              buttonIndex === index && !choice.is_answer
+                ? 'bg-error bg-opacity-20 text-error opacity-100'
+                : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   )

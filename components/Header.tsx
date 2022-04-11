@@ -15,12 +15,12 @@ export const Header: VFC = () => {
   if (!mounted) return null
 
   return (
-    <header className="fixed top-0 left-0 z-10 flex w-full items-center border-b border-base-200 bg-base-100 bg-opacity-90 py-2 px-2 md:px-5 ">
+    <header className="fixed top-0 left-0 z-10 flex w-full items-center bg-base-100 py-2 px-2 md:px-5 ">
       <h1>
         <Link href="/">
-          <a className="text-kyokasho flex items-center text-2xl font-bold">
-            <Image src="/logo.png" width={38} height={38} alt="宅建過去問" />
-            <span className="ml-1">宅建過去問</span>
+          <a className="text-noto flex items-center text-2xl font-light">
+            <Image src="/logo.svg" width={25} height={26} alt="宅建過去問" />
+            <span className="ml-2">宅建過去問</span>
           </a>
         </Link>
       </h1>
@@ -34,7 +34,7 @@ export const Header: VFC = () => {
       </div>
 
       {user ? (
-        <div className="dropdown dropdown-end">
+        <div className="dropdown-end dropdown">
           <label
             tabIndex={0}
             className="flex cursor-pointer items-center space-x-2"

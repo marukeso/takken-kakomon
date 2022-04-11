@@ -4,9 +4,9 @@ import { Header } from './Header'
 
 export const DefaultLayout: FC = ({ children }) => {
   return (
-    <div>
+    <div className="bg-base-200">
       <Header />
-      <main>{children}</main>
+      <main className="mx-auto max-w-[1000px] pt-20 pb-10">{children}</main>
       <Footer />
     </div>
   )

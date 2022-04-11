@@ -16,23 +16,21 @@ const Home: NextPage = () => {
 
       <DefaultLayout>
         {/* メインビジュアル */}
-        <div className="mx-auto w-[900px]">
-          <div className="flex items-center justify-between pt-44 pb-36 pr-16">
-            <div className="grow text-center">
-              <h1 className="text-kyokasho mb-3 text-3xl font-medium leading-10">
-                回答履歴を保存できる
-                <br />
-                宅建試験の学習サービス
-              </h1>
-              <p>
-                弱点がひとめで分かるから復習がしやすい
-                <br />
-                苦手なところを何度も問いて一回で合格しよう！
-              </p>
-              <p className="mt-2 text-sm">
-                ※サインアップしなくてもご利用いただけます。
-              </p>
-            </div>
+        <div className="flex items-center justify-between pt-44 pb-36 pr-16">
+          <div className="grow text-center">
+            <h1 className="mb-3 text-3xl font-medium leading-10">
+              回答履歴を保存できる
+              <br />
+              宅建試験の学習サービス
+            </h1>
+            <p>
+              弱点がひとめで分かるから復習がしやすい
+              <br />
+              苦手なところを何度も問いて一回で合格しよう！
+            </p>
+            <p className="mt-2 text-sm">
+              ※サインアップしなくてもご利用いただけます。
+            </p>
           </div>
         </div>
 
