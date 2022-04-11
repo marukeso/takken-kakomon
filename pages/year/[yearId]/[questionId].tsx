@@ -41,7 +41,7 @@ const QuestionPage: NextPage<Props> = (props) => {
 
         <div className="drawer-side">
           <label htmlFor="drawer" className="drawer-overlay z-10"></label>
-          <div className="card w-[300px] rounded-none px-0 py-5">
+          <div className="card w-[300px] rounded-none px-2 py-5">
             <SidebarMemo {...props} />
           </div>
         </div>
