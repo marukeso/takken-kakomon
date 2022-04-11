@@ -28,8 +28,8 @@ const QuestionPage: NextPage<Props> = (props) => {
       <div className="drawer">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
-          <main className="h-screen w-full bg-base-200 py-20">
-            <div className="mx-auto flex h-full w-[1000px] justify-between">
+          <main className="w-full bg-base-200 py-20 lg:h-screen">
+            <div className="mx-auto flex h-full max-w-[1000px] lg:justify-between">
               <div className="card hidden w-[270px] px-3 pb-3 lg:block">
                 <SidebarMemo {...props} />
               </div>
