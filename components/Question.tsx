@@ -1,4 +1,4 @@
-import { VFC, useState, useEffect, memo } from 'react'
+import { VFC, useState, memo, useLayoutEffect } from 'react'
 import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
@@ -70,7 +70,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsAnswered(false)
     setCorrectColor('')
     setWrongColor('')
