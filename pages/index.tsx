@@ -31,8 +31,13 @@ const Home: NextPage = () => {
             <Image src="/people.svg" width={300} height={211} />
           </div>
 
-          <div className="shadow-image">
-            <Image src="/main_pc.png" width={700} height={380} alt="PC画面" />
+          <div className="relative w-full">
+            <div className="shadow-image">
+              <Image src="/main_pc.png" width={750} height={407} alt="PC画面" />
+            </div>
+            <div className="shadow-image absolute top-6 right-5 rotate-6">
+              <Image src="/main_sp.png" width={240} height={387} alt="SP画面" />
+            </div>
           </div>
         </div>
 
