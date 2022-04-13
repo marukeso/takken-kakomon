@@ -56,13 +56,6 @@
   }
 }
 
-html {
-  visibility: hidden;
-}
-html.wf-active {
-  visibility: visible;
-}
-
 body {
   font-feature-settings: 'palt';
   font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;

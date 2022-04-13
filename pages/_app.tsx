@@ -4,16 +4,11 @@ import { ThemeProvider } from 'next-themes'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { useEffect, useState } from 'react'
-import adobeLoader from '../utils/adobeLoader'
+import { useState } from 'react'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    if (typeof window) adobeLoader(document)
-  }, [])
-
   const [queryClient] = useState(
     () =>
       new QueryClient({
