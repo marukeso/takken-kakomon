@@ -1,7 +1,7 @@
 import { VFC } from 'react'
 import Link from 'next/link'
 import { CheckIcon, XIcon } from '@heroicons/react/outline'
-import { answerListState } from 'atoms/answerLIstAtom'
+import { answerListState } from 'atoms/answerListAtom'
 import { useRecoilValue } from 'recoil'
 import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../graphql/generated/graphql'
 

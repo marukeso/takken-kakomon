@@ -3,7 +3,7 @@ import { VFC } from 'react'
 import { useUser } from '@auth0/nextjs-auth0'
 import Router from 'next/router'
 import { useRecoilState } from 'recoil'
-import { answerListState } from '../atoms/answerLIstAtom'
+import { answerListState } from 'atoms/answerListAtom'
 
 export const LoginButton: VFC = () => {
   const { user } = useUser()

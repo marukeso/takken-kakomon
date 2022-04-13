@@ -3,7 +3,7 @@ import { ArrowNarrowLeftIcon } from '@heroicons/react/outline'
 import { TitleList } from './TitleList'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
-import { answerListState } from 'atoms/answerLIstAtom'
+import { answerListState } from 'atoms/answerListAtom'
 import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../graphql/generated/graphql'
 
 interface Props {

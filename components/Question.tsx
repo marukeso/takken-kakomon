@@ -4,7 +4,7 @@ import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
 import { useUser } from '@auth0/nextjs-auth0'
 import { useRecoilState } from 'recoil'
-import { answerListState } from 'atoms/answerLIstAtom'
+import { answerListState } from 'atoms/answerListAtom'
 
 interface Props {
   data: GetQuestionQuery
