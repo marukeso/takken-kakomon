@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="relative mx-6">
-            <div className="shadow-image hidden md:block">
+            <div className="shadow-image hidden md:flex">
               <Image src="/main_pc.png" width={750} height={407} alt="PC画面" />
             </div>
 
