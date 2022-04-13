@@ -29,9 +29,11 @@ export const YearTitles: VFC<Props> = (props) => {
   return (
     <>
       {/* スマホ用 */}
-      <div className="card mx-4 mb-8 p-2 lg:hidden">
-        <CorrectRateStatus data={data} />
-      </div>
+      {user && (
+        <div className="card mx-4 mb-8 p-2 lg:hidden">
+          <CorrectRateStatus data={data} />
+        </div>
+      )}
 
       <div className="mb-10 flex justify-between">
         <div className="w-full bg-base-100 py-8 px-5 lg:card lg:w-[600px]">
