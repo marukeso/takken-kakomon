@@ -14,29 +14,41 @@ const Home: NextPage = () => {
 
       <DefaultLayout>
         {/* メインビジュアル */}
-        <div className="pb-20 pt-7">
+        <div className="pb-12 pt-0 md:pb-20 md:pt-7">
           <div className="mb-8 text-center">
-            <h1 className="mb-3 text-3xl font-bold leading-10">
-              回答履歴を保存できる宅建試験の学習サービス
+            <h1 className="mb-3 text-2xl font-bold leading-10 md:text-3xl">
+              回答履歴を保存できる
+              <br className="block md:hidden" />
+              宅建試験の学習サービス
             </h1>
             <p>
-              弱点がひとめで分かる。苦手なところを何度も問いて一回で合格しよう！
+              弱点がひとめで分かる。苦手なところを
+              <br className="block md:hidden" />
+              何度も問いて一回で合格しよう！
             </p>
-            <p className="mt-2 text-sm">
+            <p className="mt-2 text-xs md:text-sm">
               ※サインアップしなくても問題集はご利用いただけます。
             </p>
           </div>
 
-          <div className="mb-10 text-center">
-            <Image src="/people.svg" width={300} height={211} />
+          <div className="px-28">
+            <div className="mx-auto mb-10 max-w-[300px]">
+              <Image
+                src="/people.svg"
+                width={300}
+                height={211}
+                // layout="responsive"
+              />
+            </div>
           </div>
 
-          <div className="relative w-full">
-            <div className="shadow-image">
+          <div className="relative mx-6">
+            <div className="shadow-image hidden md:block">
               <Image src="/main_pc.png" width={750} height={407} alt="PC画面" />
             </div>
-            <div className="shadow-image absolute top-6 right-5 rotate-6">
-              <Image src="/main_sp.png" width={240} height={387} alt="SP画面" />
+
+            <div className="shadow-image relative top-0 right-0 mx-auto max-w-[350px] rotate-0 md:absolute md:top-6 md:right-5 md:w-[240px] md:rotate-6">
+              <Image src="/main_sp.png" width={320} height={517} alt="SP画面" />
             </div>
           </div>
         </div>
