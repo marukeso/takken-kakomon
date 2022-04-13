@@ -33,12 +33,7 @@ const Home: NextPage = () => {
 
           <div className="px-28">
             <div className="mx-auto mb-10 max-w-[300px]">
-              <Image
-                src="/people.svg"
-                width={300}
-                height={211}
-                // layout="responsive"
-              />
+              <Image src="/people.svg" width={300} height={211} />
             </div>
           </div>
 
