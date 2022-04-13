@@ -2,10 +2,11 @@ import Head from 'next/head'
 import { SidebarMemo } from '../../../components/Sidebar'
 import { GetServerSideProps, NextPage } from 'next'
 import { QuestionMemo } from '../../../components/Question'
-import { Header } from '../../../components/Header'
+import { HeaderWithDrawerButton } from '../../../components/HeaderWithDrawerButton'
 import { createHasuraClient } from 'utils/hasuraClient'
 import { getSession } from '@auth0/nextjs-auth0'
 import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../../../graphql/generated/graphql'
+import { PrevNextButtons } from '../../../components/PrevNextButtons'
 
 interface Props {
   data: GetQuestionAndTitlesByYearAndSubcategoryQuery
@@ -22,13 +23,29 @@ const QuestionPage: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
-      <main className="h-screen w-full bg-base-200 py-20">
-        <div className="mx-auto flex h-full w-[1000px] justify-between">
-          <SidebarMemo {...props} />
-          <QuestionMemo {...props} />
+      <HeaderWithDrawerButton />
+
+      <div className="drawer">
+        <input id="drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          <main className="w-full bg-base-200 py-20 lg:h-screen">
+            <div className="mx-auto flex h-full max-w-[1000px] lg:justify-between">
+              <div className="card hidden w-[270px] px-3 pb-3 lg:block">
+                <SidebarMemo {...props} />
+              </div>
+              <QuestionMemo {...props} />
+              <PrevNextButtons {...props} />
+            </div>
+          </main>
         </div>
-      </main>
+
+        <div className="drawer-side">
+          <label htmlFor="drawer" className="drawer-overlay z-10"></label>
+          <div className="card w-[300px] rounded-none px-2 py-5">
+            <SidebarMemo {...props} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

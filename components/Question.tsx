@@ -1,4 +1,4 @@
-import { VFC, useState, useEffect, memo } from 'react'
+import { VFC, useState, memo, useLayoutEffect } from 'react'
 import confetti from 'canvas-confetti'
 import { GetQuestionQuery } from '../graphql/generated/graphql'
 import { createHasuraClient, HasuraClient } from 'utils/hasuraClient'
@@ -70,7 +70,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsAnswered(false)
     setCorrectColor('')
     setWrongColor('')
@@ -78,7 +78,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
   }, [questionId])
 
   return (
-    <div className="card w-[700px] overflow-scroll">
+    <div className="bg-base-100 p-5 lg:card lg:w-[700px] lg:overflow-scroll">
       {/* title and question */}
       <p className="text-lg font-medium">{question?.title.content}</p>
       <div className="mt-2 mb-7 flex space-x-1">
@@ -93,7 +93,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
         </div>
       </div>
 
-      <div className="question-text mb-8 text-xl font-medium">
+      <div className="question-text mb-8 text-lg font-medium md:text-xl">
         <div
           dangerouslySetInnerHTML={{
             __html: question ? question.content : '',
@@ -106,7 +106,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
         {choices?.map((choice, index) => (
           <div
             key={choice.id}
-            className={`flex items-center rounded-xl py-4 px-3 ${
+            className={`flex flex-col rounded-xl py-4 px-3 md:flex-row md:items-center ${
               choice.is_answer ? correctColor : wrongColor
             }`}
           >
@@ -117,7 +117,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
       </div>
 
       {/* choice button */}
-      <div className="mb-10 flex justify-center space-x-6">
+      <div className="mb-10 flex justify-center space-x-4">
         {choices?.map((choice, index) => (
           <button
             key={choice.id}

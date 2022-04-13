@@ -8,15 +8,16 @@ const Terms: NextPage = () => {
       <Head>
         <title>利用規約 | 宅建過去問</title>
       </Head>
-      <div className="prose prose-sm flex max-w-none flex-col space-y-8">
+
+      <div className="prose prose-sm flex max-w-none flex-col space-y-8 px-4 lg:px-0">
         <div>
           <h1 className="mb-10 text-2xl">利用規約</h1>
-          <p className="w-[800px]">
+          <p className="max-w-[800px]">
             宅建過去問運営事務局（以下、「当事務局」といいます。）は、当事務局が提供するサービス（以下「本サービス」といいます。）を利用頂く際の取扱いにつき定めるものです。本規約に同意した上で本サービスをご利用ください。
           </p>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>1. 適用</h2>
           <div className="card">
             <p>
@@ -25,7 +26,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>2. 利用登録</h2>
           <div className="card">
             <p>
@@ -34,7 +35,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>3. 禁止事項</h2>
           <div className="card">
             <p>
@@ -68,7 +69,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>4. 本サービスの提供の停止等</h2>
           <div className="card">
             <p>
@@ -90,7 +91,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>5. 利用制限および登録抹消</h2>
           <div className="card">
             <p>
@@ -111,7 +112,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>6. 保証の否認および免責事項</h2>
           <div className="card">
             <p>
@@ -123,7 +124,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>7. サービス内容の変更等</h2>
           <div className="card">
             <p>
@@ -132,7 +133,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>8. 規約の変更</h2>
           <div className="card">
             <ul>
@@ -149,7 +150,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>9. 個人情報の取扱い</h2>
           <div className="card">
             <p>
@@ -158,7 +159,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>10. 通知または連絡</h2>
           <div className="card">
             <p>
@@ -167,7 +168,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>11. 権利義務の譲渡の禁止</h2>
           <div className="card">
             <p>
@@ -176,7 +177,7 @@ const Terms: NextPage = () => {
           </div>
         </div>
 
-        <div className="md:pc-section">
+        <div className="section lg:pc-section">
           <h2>12. 準拠法・裁判管轄</h2>
           <div className="card">
             <p>
