@@ -23,12 +23,11 @@ const QuestionPage: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <HeaderWithDrawerButton />
-
       <div className="drawer h-auto">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
-          <main className="w-full bg-base-200 py-20">
+          <HeaderWithDrawerButton />
+          <main className="w-full bg-base-200 pt-10 pb-24">
             <div className="mx-auto flex max-w-[1000px] lg:justify-between">
               <div className="card hidden h-[700px] w-[270px] px-3 pb-3 lg:block">
                 <SidebarMemo {...props} />
