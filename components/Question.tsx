@@ -81,11 +81,11 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
     <div className="bg-base-100 p-5 lg:card lg:w-[700px] lg:overflow-scroll">
       {/* title and question */}
       <p className="text-lg font-medium">{question?.title.content}</p>
-      <div className="mt-2 mb-7 flex space-x-1">
-        <div className="badge badge-outline text-xs">
+      <div className="mt-2 mb-7 flex flex-wrap">
+        <div className="badge badge-outline mb-1 mr-1 text-xs">
           {question?.title.year.content}
         </div>
-        <div className="badge badge-outline text-xs">
+        <div className="badge badge-outline mb-1 mr-1 text-xs">
           {question?.title.subcategory.category.content}
         </div>
         <div className="badge badge-outline text-xs">
