@@ -10,6 +10,10 @@ const Home: NextPage = () => {
       <Head>
         <title>宅建過去問</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="google-site-verification"
+          content="3opKrtztAlBNFkNHgCKhOc1xavOVGjLYZYLv6YY1Bts"
+        />
       </Head>
 
       <DefaultLayout>
