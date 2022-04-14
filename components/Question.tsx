@@ -23,7 +23,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
   const [wrongButtonColor] = useState<string>(
     'bg-error bg-opacity-20 text-error opacity-100'
   )
-  const [buttonIndex, setButtonIndex] = useState<number | null>(null)
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null)
 
   const [answerList, setAnswerList] = useRecoilState(answerListState)
 
@@ -42,7 +42,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
   ) => {
     const isCorrect = e.currentTarget.dataset.correct === 'true'
     setIsAnswered(true)
-    setButtonIndex(index)
+    setClickedIndex(index)
     setWrongColor('opacity-20')
     if (isCorrect) {
       setCorrectColor('bg-success bg-opacity-20 text-success')
@@ -77,7 +77,7 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
     setIsAnswered(false)
     setCorrectColor('')
     setWrongColor('')
-    setButtonIndex(null)
+    setClickedIndex(null)
   }, [questionId])
 
   return (
@@ -127,9 +127,11 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
             data-correct={choice.is_answer}
             onClick={(e) => handleOnClick(e, index)}
             className={`h-16 w-16 rounded-xl text-4xl font-medium lg:hover:bg-base-200 ${
-              choice.is_answer ? correctColor : wrongColor
+              choice.is_answer
+                ? correctColor
+                : clickedIndex !== index && wrongColor
             } ${isAnswered ? 'pointer-events-none' : ''} ${
-              buttonIndex === index && !choice.is_answer && wrongButtonColor
+              clickedIndex === index && !choice.is_answer && wrongButtonColor
             }`}
           >
             {index + 1}
