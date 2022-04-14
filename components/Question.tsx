@@ -20,6 +20,9 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
   const [correctColor, setCorrectColor] = useState<string>('')
   const [wrongColor, setWrongColor] = useState<string>('')
+  const [wrongButtonColor] = useState<string>(
+    'bg-error bg-opacity-20 text-error opacity-100'
+  )
   const [buttonIndex, setButtonIndex] = useState<number | null>(null)
 
   const [answerList, setAnswerList] = useRecoilState(answerListState)
@@ -123,12 +126,10 @@ const Question: VFC<Props> = ({ data, accessToken, questionId, yearId }) => {
             key={choice.id}
             data-correct={choice.is_answer}
             onClick={(e) => handleOnClick(e, index)}
-            className={`btn btn-ghost btn-lg text-4xl font-medium ${
+            className={`h-16 w-16 rounded-xl text-4xl font-medium lg:hover:bg-base-200 ${
               choice.is_answer ? correctColor : wrongColor
             } ${isAnswered ? 'pointer-events-none' : ''} ${
-              buttonIndex === index && !choice.is_answer
-                ? 'bg-error bg-opacity-20 text-error opacity-100'
-                : ''
+              buttonIndex === index && !choice.is_answer && wrongButtonColor
             }`}
           >
             {index + 1}
