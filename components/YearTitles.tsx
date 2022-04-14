@@ -28,14 +28,7 @@ export const YearTitles: VFC<Props> = (props) => {
 
   return (
     <>
-      {/* スマホ用 */}
-      {user && (
-        <div className="card mx-4 mb-8 p-2 lg:hidden">
-          <CorrectRateStatus data={data} />
-        </div>
-      )}
-
-      <div className="mb-10 flex justify-between">
+      <div className="mb-10 flex flex-col justify-between lg:flex-row">
         <div className="w-full bg-base-100 py-8 px-5 lg:card lg:w-[600px]">
           <div className="mb-6 flex items-center justify-between px-2">
             <h1 className="text-2xl font-medium">
@@ -73,7 +66,7 @@ export const YearTitles: VFC<Props> = (props) => {
           </ul>
         </div>
 
-        <div className="hidden w-[360px] lg:block">
+        <div className="order-[-1] mx-4 mb-8 lg:order-1 lg:mx-0 lg:w-[360px]">
           <div className="sticky top-20 rounded-2xl bg-base-100">
             {user && <CorrectRateStatus data={data} />}
             <div className="p-4">
@@ -94,13 +87,6 @@ export const YearTitles: VFC<Props> = (props) => {
 
         {/* 履歴を削除モーダル */}
         {user && <DeleteHistoryModal {...props} />}
-      </div>
-
-      {/* スマホ用 */}
-      <div className="fixed bottom-0 left-0 z-10 w-full bg-base-100 bg-opacity-50 p-4 lg:hidden">
-        <Link href={`/year/${yearId}/${yearId}01`}>
-          <a className="btn w-full">試験を開始する</a>
-        </Link>
       </div>
     </>
   )
