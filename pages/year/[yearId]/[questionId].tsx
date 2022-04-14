@@ -17,7 +17,7 @@ interface Props {
 
 const QuestionPage: NextPage<Props> = (props) => {
   return (
-    <div className="overflow-hidden">
+    <>
       <Head>
         <title>{props.data.questions_by_pk?.title.content} | 宅建過去問</title>
         <link rel="icon" href="/favicon.ico" />
@@ -25,12 +25,12 @@ const QuestionPage: NextPage<Props> = (props) => {
 
       <HeaderWithDrawerButton />
 
-      <div className="drawer">
+      <div className="drawer h-auto">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
-          <main className="w-full bg-base-200 py-20 lg:h-screen">
-            <div className="mx-auto flex h-full max-w-[1000px] lg:justify-between">
-              <div className="card hidden w-[270px] px-3 pb-3 lg:block">
+          <main className="w-full bg-base-200 py-20">
+            <div className="mx-auto flex max-w-[1000px] lg:justify-between">
+              <div className="card hidden h-[700px] w-[270px] px-3 pb-3 lg:block">
                 <SidebarMemo {...props} />
               </div>
               <QuestionMemo {...props} />
@@ -46,7 +46,7 @@ const QuestionPage: NextPage<Props> = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
