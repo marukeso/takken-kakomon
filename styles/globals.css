@@ -86,4 +86,5 @@ body {
 /* 遷移後スクロールトップするようにdrawer修正 */
 input:checked + .drawer-content {
   height: 100vh;
+  height: 100dvh;
 }
