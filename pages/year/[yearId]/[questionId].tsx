@@ -7,6 +7,7 @@ import { createHasuraClient } from 'utils/hasuraClient'
 import { getSession } from '@auth0/nextjs-auth0'
 import { GetQuestionAndTitlesByYearAndSubcategoryQuery } from '../../../graphql/generated/graphql'
 import { PrevNextButtons } from '../../../components/PrevNextButtons'
+import { useState } from 'react'
 
 interface Props {
   data: GetQuestionAndTitlesByYearAndSubcategoryQuery
@@ -16,6 +17,10 @@ interface Props {
 }
 
 const QuestionPage: NextPage<Props> = (props) => {
+  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.currentTarget.checked)
+  }
   return (
     <>
       <Head>
@@ -23,8 +28,13 @@ const QuestionPage: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="drawer h-auto">
-        <input id="drawer" type="checkbox" className="drawer-toggle" />
+      <div className={`drawer ${!isChecked ? 'h-auto' : ''}`}>
+        <input
+          id="drawer"
+          type="checkbox"
+          className="drawer-toggle"
+          onChange={handleOnChange}
+        />
         <div className="drawer-content">
           <HeaderWithDrawerButton />
           <main className="w-full bg-base-200 pt-10 pb-24">

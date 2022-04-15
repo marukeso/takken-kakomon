@@ -13,15 +13,7 @@ interface Props {
 }
 
 const Sidebar: VFC<Props> = ({ yearId, questionId, data }) => {
-  //prev next button
-  let prev, next
-  if (data) {
-    const index = data.titles.findIndex((item) => item.id === questionId)
-    prev = data.titles[index - 1] ? data.titles[index - 1] : null
-    next = data.titles[index + 1] ? data.titles[index + 1] : null
-  }
-
-  // right bottom answer list
+  // 正解数
   const [answerList, setAnswerList] = useRecoilState(answerListState)
   const correctLength = answerList.filter(
     (item) => item.yearId === yearId && item.isCorrect
