@@ -42,10 +42,10 @@ export const TitleList: VFC<Props> = ({ yearId, questionId, data }) => {
           className="group flex cursor-pointer items-center rounded-md py-3 px-4 hover:bg-base-200"
         >
           <p
-            className={`mr-2 truncate opacity-20 ${
+            className={`mr-2 truncate ${
               questionId === title.id
                 ? 'font-medium opacity-100'
-                : 'group-hover:opacity-100'
+                : 'opacity-20 group-hover:opacity-100'
             }`}
           >
             {title.content}
